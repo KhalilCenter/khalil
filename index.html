@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>مركز الخليل الطبي</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
@@ -238,13 +238,50 @@
         font-size: 0.95rem;
       }
     }
+    /* تحسين التناسق على الموبايل */
+@media (max-width: 480px) {
+  header .logo {
+    width: 70px;
+    height: 70px;
+  }
+
+  header h1 {
+    font-size: 1.8rem !important;
+    line-height: 1.4;
+  }
+
+  nav {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  nav button {
+    width: 90%;
+    font-size: 1rem;
+  }
+
+  main {
+    margin: 10px;
+    padding: 15px;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  p, li {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}
+
   </style>
 </head>
 <body>
   <header>
     <div class="header-container">
       <img src="Picsart_25-09-05_11-07-52-621.png" alt="شعار المركز" class="logo"/>
-      <h1 style="text-align: center;font-size: 100px">مركز الخليل الطبي</h1>
+<h1 style="text-align: center;">مركز الخليل الطبي</h1>
     </div>
   </header>
 
@@ -278,12 +315,20 @@
 
     <section id="contact">
       <h2>العنوان وأرقام التواصل</h2>
+      <h3>الفرع الرئيسي </h3>
       <p><strong>العنوان:</strong> امتداد شارع أحمد عرابي - أمام البنك الأهلي - مدينة الفردوس - البراجيل</p>
       <p><strong>أرقام التواصل:</strong></p>
       <ul>
         <li>01040538124</li>
         <li>01101586178</li>
         <li>0237059816</li>
+    <h3>الفرع الثاني</h3>
+    <p><strong>العنوان:</strong> شارع المعهد الازهري الابتدائي - بجوار صيدلية د/ طاهر عبدالحكيم - خلف المسجد الشرقي - البراجيل</p>
+      <p><strong>أرقام التواصل:</strong></p>
+      <ul>
+        <li>01145425460</li>
+        <li>01222476631</li>
+      </ul>
     </section>
   <section id="lab">
         <div class="doctor-card" data-whatsapp-message="أرغب في الاستفسار عن التحاليل الطبية">
@@ -325,23 +370,12 @@
           <div class="doctor-name">د/ عبدالرحمن يوسف</div>
           <div class="doctor-specialty">اخصائي الوجه و الفكيين</div>
           <div class="doctor-schedule">
-            <span>السبت, الثلاثاء, الجمعة</span>
+            <span>ال</span>
             <span>الساعة 7 مساءً</span>
           </div>
         </div>
        </div>
 
-      <div id="teeth" class="specialty-content">
-        <div class="doctor-card" data-whatsapp-message="أرغب في حجز موعد مع د/ عبدالرحمن علي - تخصص الاسنان">
-          <div class="doctor-name">د/ عبدالرحمن علي</div>
-          <div class="doctor-specialty">اخصائي الوجه و الفكيين</div>
-          <div class="doctor-schedule">
-            <span>االاحد, الخميس</span>
-            <span>الساعة 7 مساءً</span>
-          </div>
-        </div>
-       </div>
-      
       <div id="dermatology" class="specialty-content">
         <div class="doctor-card" data-whatsapp-message="أرغب في حجز موعد مع د/ محمد عماد الدين - تخصص الجلدية">
           <div class="doctor-name">د/ محمد عماد الدين</div>
