@@ -291,6 +291,7 @@
     <button class="nav-btn" data-target="specialties">جدول العيادات</button>
     <button class="nav-btn" data-target="operations">قسم العمليات</button>
     <button class="nav-btn" data-target="lab">المعمل</button>
+    <button class="nav-btn" data-target="jobs">التوظيف</button>
   </nav>
 
   <main>
@@ -478,6 +479,42 @@
       </div>
 
     </section>
+    <section id="jobs">
+  <h2>التقديم على وظيفة</h2>
+
+  <div style="max-width:400px;margin:auto">
+    <label>الاسم</label>
+    <input id="jobName" type="text" style="width:100%;padding:8px;margin:5px 0">
+
+    <label>رقم التواصل</label>
+    <input id="jobPhone" type="tel" style="width:100%;padding:8px;margin:5px 0">
+
+    <label>السن</label>
+    <input id="jobAge" type="number" style="width:100%;padding:8px;margin:5px 0">
+
+    <label>نوع الوظيفة</label>
+    <select id="jobType" style="width:100%;padding:8px;margin:5px 0">
+      <option value="استقبال">استقبال</option>
+      <option value="نظافة">نظافة</option>
+      <option value="تمريض">تمريض</option>
+    </select>
+
+    <button onclick="sendJobToWhatsApp()" style="
+      width:100%;
+      background:#25d366;
+      border:none;
+      padding:12px;
+      color:white;
+      font-size:18px;
+      border-radius:8px;
+      margin-top:10px;
+      cursor:pointer
+    ">
+      إرسال عبر واتساب
+    </button>
+  </div>
+</section>
+
   </main>
 
   <footer>
@@ -539,6 +576,30 @@
         }
       });
     });
+
+    function sendJobToWhatsApp() {
+  const name = document.getElementById("jobName").value;
+  const phone = document.getElementById("jobPhone").value;
+  const age = document.getElementById("jobAge").value;
+  const type = document.getElementById("jobType").value;
+
+  if (!name || !phone || !age) {
+    alert("من فضلك املأ جميع البيانات");
+    return;
+  }
+
+  const message = 
+`طلب توظيف:
+الاسم: ${name}
+رقم الهاتف: ${phone}
+السن: ${age}
+نوع الوظيفة: ${type}`;
+
+  const encoded = encodeURIComponent(message);
+  const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encoded}`;
+  window.open(whatsappURL, "_blank");
+}
+
 
   </script>
 </body>
