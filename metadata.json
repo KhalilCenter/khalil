@@ -1,0 +1,7 @@
+{
+  "name": "Al-Khalil Medical Center",
+  "description": "Modern medical center application with AI voice assistant capabilities.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
