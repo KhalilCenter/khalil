@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>التحاليل - مركز الخليل الطبي</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+    :root {
+      --primary-color: #6c5ce7;
+      --secondary-color: #a29bfe;
+      --light-color: #ffffff;
+      --dark-color: #2d3436;
+      --gray-color: #f5f6fa;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(135deg, #f5f6fa 0%, #e8eaf6 50%, #fce4ec 100%);
+      color: #2d3436;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    header {
+      background: rgba(255,255,255,0.9);
+      padding: 18px 0;
+      box-shadow: 0 6px 30px rgba(108,92,231,0.08);
+    }
+    .header-content { max-width: 1200px; margin: 0 auto; padding: 0 20px; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+    .logo-text h1 { margin: 0; color: var(--primary-color); }
+    nav { display:flex; gap:8px; }
+    nav a.nav-link {
+      background: rgba(108, 92, 231, 0.08);
+      border: 2px solid rgba(108, 92, 231, 0.2);
+      color: #6c5ce7;
+      padding: 10px 16px;
+      border-radius: 12px;
+      text-decoration: none;
+      display: inline-flex; align-items:center;
+    }
+    nav a.nav-link.active { background: linear-gradient(135deg, rgba(108,92,231,0.3), rgba(253,121,168,0.3)); color: #6c5ce7; }
+
+    .hero { text-align:center; padding: 40px 20px; }
+    .hero h2 { margin: 0; color: var(--primary-color); }
+
+    main { max-width: 1000px; margin: 20px auto; padding: 0 20px; }
+    .section-title { text-align:right; margin-bottom: 18px; }
+
+    .tests-container { background: rgba(255,255,255,0.9); padding: 18px; border-radius: 12px; box-shadow: 0 8px 40px rgba(13,71,161,0.06); }
+    .tests-search { display:flex; gap:10px; margin-bottom: 12px; }
+    .tests-search input { flex: 1; padding: 12px 14px; border: 1px solid #e7e7ef; border-radius: 8px; }
+    .tests-search button { background: var(--primary-color); color: #fff; border:none; padding: 10px 14px; border-radius:8px; cursor:pointer; }
+
+    .tests-list { list-style:none; padding:0; margin:0; border-top: 1px solid #f1f2f6; max-height: 520px; overflow:auto; }
+    .tests-list li { display:flex; justify-content:space-between; padding: 12px 10px; border-bottom: 1px solid #f1f2f6; font-weight:600; }
+    .tests-list li .price { color: var(--primary-color); font-weight:700; }
+    .no-results { padding:20px; text-align:center; color:#666; }
+
+    footer { text-align:center; padding: 20px 0; color:#777; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <div class="logo-section">
+        <div class="logo-text">
+          <h1>الخليل الطبي</h1>
+          <p style="margin:0; font-size:0.9rem; color:var(--primary-color)">مركز متخصص للعناية الصحية</p>
+        </div>
+      </div>
+      <nav>
+        <a class="nav-link" href="index.html">الرئيسية</a>
+        <a class="nav-link" href="index.html#specialties">التخصصات</a>
+        <a class="nav-link active" href="tests.html">التحاليل</a>
+        <a class="nav-link" href="index.html#contact">التواصل</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="hero-content">
+      <h2>قائمة التحاليل والأسعار</h2>
+      <p style="color: #6c5ce7; margin-top:8px">استخدم البحث للعثور سريعاً على التحليل المطلوب</p>
+    </div>
+  </div>
+
+  <main>
+    <section class="tests-section">
+      <div class="section-title">
+        <h2>التحاليل</h2>
+      </div>
+
+      <div class="tests-container">
+        <div class="tests-search">
+          <input type="text" id="tests-search-input" placeholder="ابحث عن اسم التحليل..." aria-label="ابحث عن التحاليل">
+          <button id="tests-search-btn"><i class="fa fa-search"></i></button>
+        </div>
+
+        <ul id="tests-list" class="tests-list"></ul>
+        <div id="tests-no-results" class="no-results" style="display:none">لا توجد نتائج مطابقة</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 مركز الخليل الطبي - جميع الحقوق محفوظة</p>
+  </footer>
+
+  <script>
+    const testsData = [
+      { name: 'Urine - تحليل بول', price: '50 ج' },
+      { name: 'Cultures - مزرعة', price: '200 ج' },
+      { name: 'Alb/Creatinine Ratio in urine - نسبة الالبومين/الكرياتينين في البول', price: '200 ج' },
+      { name: 'Stool - تحليل براز', price: '50 ج' },
+      { name: 'H.pylori test', price: '200 ج' },
+      { name: 'Occult blood in stool - دم خفي في البراز', price: '170 ج' },
+      { name: 'CBC (صورة دم كاملة)', price: '80 ج' },
+      { name: 'HB%', price: '50 ج' },
+      { name: 'T.L.C - Total Leukocyte Count', price: '50 ج' },
+      { name: 'Platelets - صفائح دموية', price: '50 ج' },
+      { name: 'HB Electrophoresis - فصل الهيموجلوبين', price: '450 ج' },
+      { name: 'F.B.S - Fasting Blood Sugar', price: '50 ج' },
+      { name: 'P.P.S - Post Prandial Sugar', price: '50 ج' },
+      { name: 'R.B.S - Random Blood Sugar', price: '50 ج' },
+      { name: 'HBA1C - السكر التراكمي', price: '150 ج' },
+      { name: 'Homa IR', price: '200 ج' },
+      { name: 'ASOT', price: '80 ج' },
+      { name: 'CRP - C-Reactive Protein', price: '80 ج' },
+      { name: 'RF - Rheumatoid Factor', price: '80 ج' },
+      { name: 'ESR - سرعة الترسيب', price: '80 ج' },
+      { name: 'ACCP (Anti-CCP)', price: '350 ج' },
+      { name: 'Urea - يوريا', price: '50 ج' },
+      { name: 'Creatinine - كرياتينين', price: '50 ج' },
+      { name: 'Uric Acid - حمض اليوريك', price: '50 ج' },
+      { name: 'S.GOT (AST) - وظائف كبد', price: '50 ج' },
+      { name: 'S.GPT (ALT) - وظائف كبد', price: '50 ج' },
+      { name: 'Albumin - ألبومين', price: '60 ج' },
+      { name: 'Bilirubin Direct - بيليروبين مباشر', price: '50 ج' },
+      { name: 'Bilirubin Total - بيليروبين كلي', price: '50 ج' },
+      { name: 'Total Protein - بروتين كلي', price: '150 ج' },
+      { name: 'Cholesterol - كوليسترول', price: '50 ج' },
+      { name: 'Triglyceride - تراي غليسيريد', price: '50 ج' },
+      { name: 'HDL - كوليسترول جيد', price: '50 ج' },
+      { name: 'LDL - كوليسترول سيء', price: '50 ج' },
+      { name: 'Lipid Profile - دهن كامل', price: '200 ج' },
+      { name: 'PT + INR - زمن التخثر + INR', price: '50 ج' },
+      { name: 'PTT - زمن التخثر الجزئي', price: '60 ج' },
+      { name: 'D-dimer', price: '280 ج' },
+      { name: 'Lupus Anticoagulants (LA)', price: '400 ج' },
+      { name: 'Bleeding Time', price: '50 ج' },
+      { name: 'Clotting Time', price: '50 ج' },
+      { name: 'FSH', price: '120 ج' },
+      { name: 'PRL - Prolactin', price: '120 ج' },
+      { name: 'LH', price: '120 ج' },
+      { name: 'TSH', price: '100 ج' },
+      { name: 'T3', price: '100 ج' },
+      { name: 'T4', price: '100 ج' },
+      { name: 'FT3', price: '100 ج' },
+      { name: 'FT4', price: '100 ج' },
+      { name: 'PTH', price: '250 ج' },
+      { name: 'HAV Ab', price: '200 ج' },
+      { name: 'HBS Ag', price: '120 ج' },
+      { name: 'HCV Ab', price: '120 ج' },
+      { name: 'HIV AB', price: '120 ج' },
+      { name: 'Na - صوديوم', price: '80 ج' },
+      { name: 'Ph (Phosphate)', price: '80 ج' },
+      { name: 'Iron - حديد', price: '90 ج' },
+      { name: 'K - بوتاسيوم', price: '80 ج' },
+      { name: 'Ca Ionized', price: '80 ج' },
+      { name: 'Ca Total', price: '80 ج' },
+      { name: 'Alkaline Phosphatase', price: '90 ج' },
+      { name: 'Ferritin', price: '120 ج' },
+      { name: 'Blood Group', price: '50 ج' },
+      { name: 'RH (Group)', price: '50 ج' },
+      { name: 'Pregnancy Test', price: '50 ج' },
+      { name: 'BHCG', price: '200 ج' },
+      { name: 'Progesterone (P4)', price: '190 ج' },
+      { name: 'Estradiol (E2)', price: '120 ج' },
+      { name: 'Testosterone (Free)', price: '170 ج' },
+      { name: 'Testosterone (Total)', price: '190 ج' },
+      { name: 'PSA', price: '170 ج' },
+      { name: 'Free PSA', price: '170 ج' },
+      { name: 'AFP', price: '180 ج' },
+      { name: 'ANA', price: '300 ج' },
+      { name: 'Anti Beta 2 Glycoprotein IgG', price: '600 ج' },
+      { name: 'Anti Beta 2 Glycoprotein IgM', price: '600 ج' },
+      { name: 'Anti Cardiolipin IgG', price: '400 ج' },
+      { name: 'Anti cardiolipin IGG or IGM', price: '220 ج' },
+      { name: 'Anti Cardiolipin IgM', price: '400 ج' },
+      { name: 'CMV IgG', price: '200 ج' },
+      { name: 'CMV IgM', price: '200 ج' },
+      { name: 'CPK', price: '100 ج' },
+      { name: 'Semen analysis', price: '200 ج' },
+      { name: 'Sputum culture', price: '300 ج' },
+      { name: 'Toxoplasma IgG', price: '200 ج' },
+      { name: 'Toxoplasma IgM', price: '200 ج' },
+      { name: 'VIT B12', price: '500 ج' },
+      { name: 'Drug in urine', price: '400 ج' },
+      { name: 'VIT D', price: '450 ج' }
+    ];
+
+    const testsListEl = document.getElementById('tests-list');
+    const testsInput = document.getElementById('tests-search-input');
+    const testsNoResults = document.getElementById('tests-no-results');
+
+    function renderTests(list) {
+      if (!list || list.length === 0) {
+        testsListEl.innerHTML = '';
+        testsNoResults.style.display = 'block';
+        return;
+      }
+      testsNoResults.style.display = 'none';
+      testsListEl.innerHTML = list.map(t => `\n        <li>\n          <span class="test-name">${t.name}</span>\n          <span class="price">${t.price}</span>\n        </li>\n      `).join('');
+    }
+
+    // initial render
+    renderTests(testsData);
+
+    testsInput.addEventListener('input', () => {
+      const q = testsInput.value.trim().toLowerCase();
+      const filtered = testsData.filter(t => t.name.toLowerCase().includes(q));
+      renderTests(filtered);
+    });
+
+    document.getElementById('tests-search-btn').addEventListener('click', () => {
+      const q = testsInput.value.trim().toLowerCase();
+      const filtered = testsData.filter(t => t.name.toLowerCase().includes(q));
+      renderTests(filtered);
+      testsInput.focus();
+    });
+
+    testsInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        document.getElementById('tests-search-btn').click();
+      }
+    });
+  </script>
+</body>
+</html>
