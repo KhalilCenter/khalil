@@ -15,12 +15,14 @@
     }
 
     :root {
-      --primary-color: #0d47a1;
-      --secondary-color: #1565c0;
-      --accent-color: #0288d1;
+      --primary-color: #6c5ce7;
+      --secondary-color: #a29bfe;
+      --accent-color: #fd79a8;
       --light-color: #ffffff;
-      --dark-color: #1a2332;
-      --gray-color: #f5f7fa;
+      --dark-color: #2d3436;
+      --gray-color: #f5f6fa;
+      --success-color: #00b894;
+      --warning-color: #fdcb6e;
     }
 
     html {
@@ -29,8 +31,8 @@
 
     body {
       font-family: 'Cairo', sans-serif;
-      background: linear-gradient(135deg, #f0f4ff 0%, #e3f2fd 50%, #ffffff 100%);
-      color: #1a1a2e;
+      background: linear-gradient(135deg, #f5f6fa 0%, #e8eaf6 50%, #fce4ec 100%);
+      color: #2d3436;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -67,20 +69,20 @@
 
     /* ===== HEADER & NAVIGATION ===== */
     header {
-      background: rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(20px) saturate(180%);
       padding: 20px 0;
       position: sticky;
       top: 0;
       z-index: 1000;
-      box-shadow: 0 8px 32px rgba(13, 71, 161, 0.1);
-      border-bottom: 2px solid rgba(13, 71, 161, 0.1);
+      box-shadow: 0 8px 32px rgba(108, 92, 231, 0.15);
+      border-bottom: 2px solid rgba(108, 92, 231, 0.1);
       transition: all 0.3s ease;
     }
 
     header:hover {
-      box-shadow: 0 8px 32px rgba(13, 71, 161, 0.15);
-      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 8px 32px rgba(108, 92, 231, 0.25);
+      background: rgba(255, 255, 255, 0.95);
     }
 
     .header-content {
@@ -111,11 +113,11 @@
 
     .logo-text h1 {
       font-size: 1.8rem;
-      color: #0d47a1;
+      color: #6c5ce7;
       margin: 0;
       font-weight: 700;
       letter-spacing: 0.5px;
-      background: linear-gradient(135deg, #0d47a1, #1976d2);
+      background: linear-gradient(135deg, #6c5ce7, #fd79a8);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -123,7 +125,7 @@
     }
 
     .logo-text p {
-      color: #0d47a1;
+      color: #6c5ce7;
       font-size: 0.9rem;
       margin: 0;
       font-weight: 300;
@@ -139,9 +141,9 @@
     }
 
     nav button {
-      background: rgba(13, 71, 161, 0.08);
-      border: 2px solid rgba(13, 71, 161, 0.2);
-      color: #0d47a1;
+      background: rgba(108, 92, 231, 0.08);
+      border: 2px solid rgba(108, 92, 231, 0.2);
+      color: #6c5ce7;
       padding: 10px 18px;
       border-radius: 12px;
       cursor: pointer;
@@ -169,31 +171,31 @@
     }
 
     nav button:hover {
-      background: rgba(13, 71, 161, 0.15);
-      border-color: rgba(13, 71, 161, 0.4);
+      background: rgba(108, 92, 231, 0.15);
+      border-color: rgba(108, 92, 231, 0.4);
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(13, 71, 161, 0.2);
-      color: #1565c0;
+      box-shadow: 0 8px 24px rgba(108, 92, 231, 0.2);
+      color: #fd79a8;
     }
 
     nav button.active {
-      background: linear-gradient(135deg, rgba(13, 71, 161, 0.3), rgba(25, 118, 210, 0.3));
-      border-color: #0d47a1;
-      color: #0d47a1;
+      background: linear-gradient(135deg, rgba(108, 92, 231, 0.3), rgba(253, 121, 168, 0.3));
+      border-color: #6c5ce7;
+      color: #6c5ce7;
       font-weight: 600;
-      box-shadow: 0 8px 32px rgba(13, 71, 161, 0.25);
+      box-shadow: 0 8px 32px rgba(108, 92, 231, 0.25);
     }
 
     /* ===== HERO SECTION ===== */
     .hero {
-      background: linear-gradient(135deg, rgba(13, 71, 161, 0.08) 0%, rgba(25, 118, 210, 0.08) 100%);
+      background: linear-gradient(135deg, rgba(108, 92, 231, 0.08) 0%, rgba(253, 121, 168, 0.08) 100%);
       backdrop-filter: blur(10px);
       padding: 60px 20px;
-      color: #0d47a1;
+      color: #6c5ce7;
       text-align: center;
       position: relative;
       overflow: hidden;
-      border-bottom: 2px solid rgba(13, 71, 161, 0.1);
+      border-bottom: 2px solid rgba(108, 92, 231, 0.1);
     }
 
     .hero::before {
@@ -203,7 +205,7 @@
       right: -10%;
       width: 500px;
       height: 500px;
-      background: radial-gradient(circle, rgba(25, 118, 210, 0.15) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(253, 121, 168, 0.15) 0%, transparent 70%);
       border-radius: 50%;
       filter: blur(50px);
       z-index: 0;
@@ -217,7 +219,7 @@
       left: -10%;
       width: 400px;
       height: 400px;
-      background: radial-gradient(circle, rgba(13, 71, 161, 0.1) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(108, 92, 231, 0.1) 0%, transparent 70%);
       border-radius: 50%;
       filter: blur(50px);
       z-index: 0;
@@ -236,7 +238,7 @@
       margin-bottom: 20px;
       font-weight: 700;
       line-height: 1.2;
-      background: linear-gradient(135deg, #0d47a1, #1565c0);
+      background: linear-gradient(135deg, #6c5ce7, #fd79a8);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -246,7 +248,7 @@
     .hero p {
       font-size: 1.2rem;
       margin-bottom: 30px;
-      color: #0d47a1;
+      color: #6c5ce7;
       line-height: 1.8;
       font-weight: 300;
       animation: fadeInUp 0.8s ease 0.2s both;
@@ -289,11 +291,11 @@
 
     .section-title h2 {
       font-size: 2.5rem;
-      color: #0d47a1;
+      color: #6c5ce7;
       margin-bottom: 15px;
       position: relative;
       display: inline-block;
-      background: linear-gradient(135deg, #0d47a1, #1565c0);
+      background: linear-gradient(135deg, #6c5ce7, #fd79a8);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -308,14 +310,14 @@
       transform: translateX(-50%);
       width: 60px;
       height: 4px;
-      background: linear-gradient(90deg, #0d47a1, #1565c0);
+      background: linear-gradient(90deg, #6c5ce7, #fd79a8);
       border-radius: 2px;
-      box-shadow: 0 4px 15px rgba(13, 71, 161, 0.3);
+      box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
     }
 
     .section-title p {
       font-size: 1.1rem;
-      color: #0d47a1;
+      color: #6c5ce7;
       font-weight: 300;
       margin-top: 20px;
       opacity: 0.85;
@@ -354,18 +356,18 @@
 
     .card:hover {
       transform: translateY(-12px);
-      box-shadow: 0 15px 50px rgba(13, 71, 161, 0.2);
+      box-shadow: 0 15px 50px rgba(108, 92, 231, 0.2);
       background: rgba(255, 255, 255, 0.6);
-      border-color: rgba(13, 71, 161, 0.3);
+      border-color: rgba(108, 92, 231, 0.3);
     }
 
     .card-header {
-      background: linear-gradient(135deg, rgba(13, 71, 161, 0.15) 0%, rgba(25, 118, 210, 0.15) 100%);
+      background: linear-gradient(135deg, rgba(108, 92, 231, 0.15) 0%, rgba(253, 121, 168, 0.15) 100%);
       backdrop-filter: blur(10px);
       padding: 30px 20px;
-      color: #0d47a1;
+      color: #6c5ce7;
       text-align: center;
-      border-bottom: 2px solid rgba(13, 71, 161, 0.1);
+      border-bottom: 2px solid rgba(108, 92, 231, 0.1);
     }
 
     .card-icon {
@@ -413,7 +415,7 @@
     }
 
     .card-btn {
-      background: linear-gradient(135deg, #0d47a1, #1565c0);
+      background: linear-gradient(135deg, #6c5ce7, #fd79a8);
       color: #ffffff;
       border: 2px solid transparent;
       padding: 12px 20px;
@@ -427,7 +429,7 @@
       backdrop-filter: blur(10px);
       position: relative;
       overflow: hidden;
-      box-shadow: 0 4px 15px rgba(13, 71, 161, 0.2);
+      box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
     }
 
     .card-btn::before {
@@ -447,7 +449,7 @@
 
     .card-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(13, 71, 161, 0.3);
+      box-shadow: 0 8px 24px rgba(108, 92, 231, 0.3);
       border-color: rgba(255, 255, 255, 0.3);
     }
 
@@ -469,9 +471,9 @@
     }
 
     .tab-btn {
-      background: rgba(13, 71, 161, 0.08);
-      border: 2px solid rgba(13, 71, 161, 0.2);
-      color: #0d47a1;
+      background: rgba(108, 92, 231, 0.08);
+      border: 2px solid rgba(108, 92, 231, 0.2);
+      color: #6c5ce7;
       padding: 12px 24px;
       border-radius: 12px;
       cursor: pointer;
@@ -499,16 +501,16 @@
     }
 
     .tab-btn:hover {
-      border-color: #0d47a1;
-      color: #1565c0;
-      background: rgba(13, 71, 161, 0.12);
+      border-color: #6c5ce7;
+      color: #fd79a8;
+      background: rgba(108, 92, 231, 0.12);
     }
 
     .tab-btn.active {
-      background: linear-gradient(135deg, rgba(13, 71, 161, 0.3), rgba(25, 118, 210, 0.3));
-      color: #0d47a1;
-      border-color: #0d47a1;
-      box-shadow: 0 8px 24px rgba(13, 71, 161, 0.2);
+      background: linear-gradient(135deg, rgba(108, 92, 231, 0.3), rgba(253, 121, 168, 0.3));
+      color: #6c5ce7;
+      border-color: #6c5ce7;
+      box-shadow: 0 8px 24px rgba(108, 92, 231, 0.2);
       font-weight: 600;
     }
 
@@ -525,15 +527,15 @@
       background: rgba(255, 255, 255, 0.6);
       padding: 40px;
       border-radius: 20px;
-      box-shadow: 0 8px 32px rgba(13, 71, 161, 0.15);
-      border: 2px solid rgba(13, 71, 161, 0.15);
+      box-shadow: 0 8px 32px rgba(108, 92, 231, 0.15);
+      border: 2px solid rgba(108, 92, 231, 0.15);
       backdrop-filter: blur(15px) saturate(200%);
       transition: all 0.3s ease;
     }
 
     .form-container:hover {
-      box-shadow: 0 12px 40px rgba(13, 71, 161, 0.2);
-      border-color: rgba(13, 71, 161, 0.25);
+      box-shadow: 0 12px 40px rgba(108, 92, 231, 0.2);
+      border-color: rgba(108, 92, 231, 0.25);
     }
 
     .form-group {
@@ -544,7 +546,7 @@
 
     .form-group label {
       font-weight: 600;
-      color: #0d47a1;
+      color: #6c5ce7;
       margin-bottom: 8px;
       font-size: 1rem;
     }
@@ -552,31 +554,31 @@
     .form-group input,
     .form-group select {
       padding: 12px 15px;
-      border: 2px solid rgba(13, 71, 161, 0.2);
+      border: 2px solid rgba(108, 92, 231, 0.2);
       border-radius: 10px;
       font-size: 1rem;
       font-family: 'Cairo', sans-serif;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      background: rgba(13, 71, 161, 0.03);
-      color: #0d47a1;
+      background: rgba(108, 92, 231, 0.03);
+      color: #6c5ce7;
       backdrop-filter: blur(10px);
     }
 
     .form-group input::placeholder,
     .form-group select {
-      color: rgba(13, 71, 161, 0.5);
+      color: rgba(108, 92, 231, 0.5);
     }
 
     .form-group input:focus,
     .form-group select:focus {
       outline: none;
-      border-color: #0d47a1;
-      background: rgba(13, 71, 161, 0.05);
-      box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.1);
+      border-color: #6c5ce7;
+      background: rgba(108, 92, 231, 0.05);
+      box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
     }
 
     .submit-btn {
-      background: linear-gradient(135deg, #0d47a1, #1565c0);
+      background: linear-gradient(135deg, #6c5ce7, #fd79a8);
       color: #ffffff;
       border: 2px solid transparent;
       padding: 14px 30px;
@@ -590,7 +592,7 @@
       backdrop-filter: blur(10px);
       position: relative;
       overflow: hidden;
-      box-shadow: 0 4px 15px rgba(13, 71, 161, 0.2);
+      box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
     }
 
     .submit-btn::before {
@@ -610,7 +612,7 @@
 
     .submit-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 32px rgba(13, 71, 161, 0.3);
+      box-shadow: 0 12px 32px rgba(108, 92, 231, 0.3);
       border-color: rgba(255, 255, 255, 0.3);
     }
 
@@ -620,13 +622,13 @@
 
     /* ===== FOOTER ===== */
     footer {
-      background: linear-gradient(135deg, rgba(13, 71, 161, 0.1), rgba(25, 118, 210, 0.1));
+      background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), rgba(253, 121, 168, 0.1));
       backdrop-filter: blur(20px) saturate(180%);
-      color: #0d47a1;
+      color: #6c5ce7;
       padding: 40px 20px;
       text-align: center;
       margin-top: 60px;
-      border-top: 2px solid rgba(13, 71, 161, 0.2);
+      border-top: 2px solid rgba(108, 92, 231, 0.2);
     }
 
     .footer-content {
@@ -636,7 +638,7 @@
 
     .footer-content p {
       margin: 0;
-      color: #0d47a1;
+      color: #6c5ce7;
       font-size: 1rem;
       opacity: 0.9;
     }
@@ -1013,37 +1015,7 @@
 </style>
 </head>
 <body>
-  <!-- BOOKING MODAL -->
-  <div id="bookingModal" class="modal-overlay">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>����� �����</h2>
-        <button class="modal-close" onclick="closeBookingModal()">�</button>
-      </div>
-      <div class="booking-doctor-info">
-        <p id="doctorInfo">�� �/ ��� ������</p>
-      </div>
-      <form class="booking-form" onsubmit="confirmBooking(event)">
-        <div class="booking-form-group">
-          <label for="patientName">����� ������</label>
-          <input type="text" id="patientName" placeholder="���� ���� ������" required>
-        </div>
-        <div class="booking-form-group">
-          <label for="patientPhone">��� ������</label>
-          <input type="tel" id="patientPhone" placeholder="01XXXXXXXXX" required>
-        </div>
-        <div class="booking-form-group">
-          <label for="bookingNotes">������� ������</label>
-          <textarea id="bookingNotes" placeholder="���� �� ������� �� ��������� ����..."></textarea>
-        </div>
-        <div class="modal-buttons">
-          <button type="button" class="modal-btn modal-btn-cancel" onclick="closeBookingModal()">�����</button>
-          <button type="submit" class="modal-btn modal-btn-confirm">����� �����</button>
-        </div>
-      </form>
-    </div>
-  </div>
-  <!-- HEADER & NAVIGATION -->
+    <!-- HEADER & NAVIGATION -->
   <header>
     <div class="header-content">
       <div class="logo-section">
@@ -1410,54 +1382,20 @@
     const whatsappNumber = "+201040538124";
 
     function contactDoctor(doctorName) {
-      // فتح نافذة الحجز بدلاً من فتح WhatsApp مباشرة
-      document.getElementById('bookingModal').classList.add('active');
-      document.getElementById('doctorInfo').innerHTML = `مع د/ ${doctorName}`;
-      // حفظ اسم الطبيب لاستخدامه عند التأكيد
-      window.selectedDoctor = doctorName;
-      // تنظيف الحقول
-      document.getElementById('patientName').value = '';
-      document.getElementById('patientPhone').value = '';
-      document.getElementById('bookingNotes').value = '';
-    }
-
-    function closeBookingModal() {
-      document.getElementById('bookingModal').classList.remove('active');
-    }
-
-    function confirmBooking(event) {
-      event.preventDefault();
-      
-      const patientName = document.getElementById('patientName').value.trim();
-      const patientPhone = document.getElementById('patientPhone').value.trim();
-      const bookingNotes = document.getElementById('bookingNotes').value.trim();
-      const doctorName = window.selectedDoctor || 'الطبيب';
-      
-      if (!patientName || !patientPhone) {
-        alert('يرجى ملء جميع الحقول المطلوبة');
-        return;
-      }
-      
-      // تكوين الرسالة
-      let message = `حجز موعد جديد:\n\nالمريض: ${patientName}\nرقم الهاتف: ${patientPhone}\nالطبيب: ${doctorName}`;
-      if (bookingNotes) {
-        message += `\nملاحظات: ${bookingNotes}`;
-      }
-      
-      // فتح WhatsApp مع الرسالة
+      // فتح WhatsApp للتواصل مع الطبيب مباشرة
+      const message = `أريد حجز موعد مع د/ ${doctorName}`;
       const encodedMessage = encodeURIComponent(message);
       window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
-      
-      // إغلاق النافذة
-      closeBookingModal();
     }
 
-    // إغلاق النافذة عند الضغط على الخلفية
-    document.getElementById('bookingModal').addEventListener('click', function(event) {
-      if (event.target === this) {
-        closeBookingModal();
-      }
-    });
+    `;
+      const encodedMessage = encodeURIComponent(message);
+      window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
+    }
+
+
+
+
 
     function sendJobToWhatsApp() {
       const name = document.getElementById('jobName').value;
