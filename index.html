@@ -1311,6 +1311,7 @@
           specialty: 'اخصائي العظام والعمود الفقري',
           schedule: ['السبت، الثلاثاء، الخميس', 'الساعة 8 مساءً']
         }
+        
       ],
       internal: [
         {
@@ -1385,7 +1386,7 @@
 
     function contactDoctor(doctorName) {
       // فتح WhatsApp للتواصل مع الطبيب مباشرة
-      const message = `أريد حجز موعد مع د/ ${doctorName}`;
+      const message = `أريد حجز موعد مع${doctorName}`; 
       const encodedMessage = encodeURIComponent(message);
       window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
     }
