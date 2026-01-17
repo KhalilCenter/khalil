@@ -2,605 +2,1822 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>مركز الخليل الطبي</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #0d47a1;
+      --secondary-color: #1565c0;
+      --accent-color: #0288d1;
+      --light-color: #ffffff;
+      --dark-color: #1a2332;
+      --gray-color: #f5f7fa;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
       font-family: 'Cairo', sans-serif;
-      background: linear-gradient(135deg, #004aad 0%, #0057d9 100%);
-      color: #f0f0f0;
-      margin: 0;
-      padding: 0;
+      background: linear-gradient(135deg, #f0f4ff 0%, #e3f2fd 50%, #ffffff 100%);
+      color: #1a1a2e;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      position: relative;
+      overflow-x: hidden;
     }
 
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @keyframes glow {
+      0%, 100% { filter: drop-shadow(0 0 20px rgba(13, 71, 161, 0.3)); }
+      50% { filter: drop-shadow(0 0 40px rgba(13, 71, 161, 0.5)); }
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" result="noise"/></filter><rect width="100" height="100" fill="white" filter="url(%23noise)" opacity="0.03"/></svg>');
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== HEADER & NAVIGATION ===== */
     header {
-      background-color: #012eb5;
-      padding: 20px 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(20px) saturate(180%);
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 8px 32px rgba(13, 71, 161, 0.1);
+      border-bottom: 2px solid rgba(13, 71, 161, 0.1);
+      transition: all 0.3s ease;
     }
 
-    header .header-container {
+    header:hover {
+      box-shadow: 0 8px 32px rgba(13, 71, 161, 0.15);
+      background: rgba(255, 255, 255, 0.85);
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
       gap: 15px;
+      flex: 0 0 auto;
     }
 
-    header .logo {
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 2px solid #aaddff;
-      background-color: aliceblue;
+    .logo-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 5px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
-    header h1 {
+    .logo-text h1 {
+      font-size: 1.8rem;
+      color: #0d47a1;
       margin: 0;
-      font-size: 2.8rem;
-      letter-spacing: 2px;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      background: linear-gradient(135deg, #0d47a1, #1976d2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .logo-text p {
+      color: #0d47a1;
+      font-size: 0.9rem;
+      margin: 0;
+      font-weight: 300;
+      letter-spacing: 1px;
     }
 
     nav {
-      background-color: #0141d9;
       display: flex;
-      justify-content: center;
-      gap: 15px;
-      padding: 12px 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      gap: 5px;
       flex-wrap: wrap;
+      justify-content: center;
+      flex: 1;
     }
 
     nav button {
-      background: transparent;
-      border: 2px solid #aaddff;
-      color: #aaddff;
-      font-size: 1.1rem;
-      padding: 8px 18px;
-      border-radius: 8px;
+      background: rgba(13, 71, 161, 0.08);
+      border: 2px solid rgba(13, 71, 161, 0.2);
+      color: #0d47a1;
+      padding: 10px 18px;
+      border-radius: 12px;
       cursor: pointer;
-      transition: all 0.3s ease;
-      min-width: 120px;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
     }
 
-    nav button:hover,
+    nav button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.6s ease;
+    }
+
+    nav button:hover::before {
+      left: 100%;
+    }
+
+    nav button:hover {
+      background: rgba(13, 71, 161, 0.15);
+      border-color: rgba(13, 71, 161, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(13, 71, 161, 0.2);
+      color: #1565c0;
+    }
+
     nav button.active {
-      background-color: #aaddff;
-      color: #004aad;
-      border-color: #004aad;
-      font-weight: bold;
-      box-shadow: 0 0 8px #aaddff;
+      background: linear-gradient(135deg, rgba(13, 71, 161, 0.3), rgba(25, 118, 210, 0.3));
+      border-color: #0d47a1;
+      color: #0d47a1;
+      font-weight: 600;
+      box-shadow: 0 8px 32px rgba(13, 71, 161, 0.25);
     }
 
+    /* ===== HERO SECTION ===== */
+    .hero {
+      background: linear-gradient(135deg, rgba(13, 71, 161, 0.08) 0%, rgba(25, 118, 210, 0.08) 100%);
+      backdrop-filter: blur(10px);
+      padding: 60px 20px;
+      color: #0d47a1;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 2px solid rgba(13, 71, 161, 0.1);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(25, 118, 210, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+      filter: blur(50px);
+      z-index: 0;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -50%;
+      left: -10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(13, 71, 161, 0.1) 0%, transparent 70%);
+      border-radius: 50%;
+      filter: blur(50px);
+      z-index: 0;
+      animation: float 8s ease-in-out infinite reverse;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h2 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      font-weight: 700;
+      line-height: 1.2;
+      background: linear-gradient(135deg, #0d47a1, #1565c0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      color: #0d47a1;
+      line-height: 1.8;
+      font-weight: 300;
+      animation: fadeInUp 0.8s ease 0.2s both;
+    }
+
+    /* ===== MAIN CONTENT ===== */
     main {
       flex: 1;
-      max-width: 900px;
-      margin: 30px auto 40px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 15px;
-      padding: 30px 40px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-      min-height: 400px;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 40px 20px;
     }
 
     section {
       display: none;
-      animation: fadeIn 0.5s ease forwards;
+      animation: fadeInUp 0.5s ease forwards;
     }
 
     section.active {
       display: block;
     }
 
-    h2 {
-      font-size: 2rem;
-      margin-bottom: 20px;
-      color: #aaddff;
-      border-bottom: 3px solid #aaddff;
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ===== SECTION TITLE ===== */
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-title h2 {
+      font-size: 2.5rem;
+      color: #0d47a1;
+      margin-bottom: 15px;
+      position: relative;
       display: inline-block;
-      padding-bottom: 5px;
-      text-shadow: 0 0 5px #aaddff;
+      background: linear-gradient(135deg, #0d47a1, #1565c0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
     }
 
-    p {
-      font-size: 1.15rem;
-      line-height: 1.8;
-      color: #e0e7ff;
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, #0d47a1, #1565c0);
+      border-radius: 2px;
+      box-shadow: 0 4px 15px rgba(13, 71, 161, 0.3);
     }
 
-    .specialty-tabs {
+    .section-title p {
+      font-size: 1.1rem;
+      color: #0d47a1;
+      font-weight: 300;
+      margin-top: 20px;
+      opacity: 0.85;
+    }
+
+    /* ===== CARDS GRID ===== */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(13, 71, 161, 0.1);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       display: flex;
+      flex-direction: column;
+      position: relative;
+      border: 2px solid rgba(13, 71, 161, 0.15);
+      backdrop-filter: blur(15px) saturate(200%);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #0d47a1, #1565c0);
+    }
+
+    .card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 15px 50px rgba(13, 71, 161, 0.2);
+      background: rgba(255, 255, 255, 0.6);
+      border-color: rgba(13, 71, 161, 0.3);
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, rgba(13, 71, 161, 0.15) 0%, rgba(25, 118, 210, 0.15) 100%);
+      backdrop-filter: blur(10px);
+      padding: 30px 20px;
+      color: #0d47a1;
+      text-align: center;
+      border-bottom: 2px solid rgba(13, 71, 161, 0.1);
+    }
+
+    .card-icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .card-body {
+      padding: 30px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-text {
+      color: rgba(26, 26, 46, 0.85);
+      line-height: 1.8;
+      margin-bottom: 20px;
+      font-size: 1rem;
+    }
+
+    .card-schedule {
+      margin-top: auto;
+      padding-top: 20px;
+      border-top: 1px solid rgba(102, 126, 234, 0.2);
+    }
+
+    .schedule-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      color: rgba(26, 26, 46, 0.75);
+      font-size: 0.95rem;
+    }
+
+    .schedule-item span:first-child {
+      font-weight: 600;
+    }
+
+    .card-btn {
+      background: linear-gradient(135deg, #0d47a1, #1565c0);
+      color: #ffffff;
+      border: 2px solid transparent;
+      padding: 12px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: 20px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 100%;
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(13, 71, 161, 0.2);
+    }
+
+    .card-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      transition: left 0.6s ease;
+    }
+
+    .card-btn:hover::before {
+      left: 100%;
+    }
+
+    .card-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(13, 71, 161, 0.3);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .card-btn:active {
+      transform: translateY(0);
+    }
+
+    /* ===== TABS ===== */
+    .tabs-container {
+      margin-bottom: 40px;
+    }
+
+    .tabs-buttons {
+      display: flex;
+      gap: 10px;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 25px;
+      margin-bottom: 30px;
       justify-content: center;
     }
 
-    .specialty-tabs button {
-      background: transparent;
-      border: 2px solid #aaddff;
-      color: #aaddff;
-      font-size: 1rem;
-      padding: 6px 14px;
-      border-radius: 8px;
+    .tab-btn {
+      background: rgba(13, 71, 161, 0.08);
+      border: 2px solid rgba(13, 71, 161, 0.2);
+      color: #0d47a1;
+      padding: 12px 24px;
+      border-radius: 12px;
       cursor: pointer;
-      min-width: 140px;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tab-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .tab-btn:hover::before {
+      left: 100%;
+    }
+
+    .tab-btn:hover {
+      border-color: #0d47a1;
+      color: #1565c0;
+      background: rgba(13, 71, 161, 0.12);
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, rgba(13, 71, 161, 0.3), rgba(25, 118, 210, 0.3));
+      color: #0d47a1;
+      border-color: #0d47a1;
+      box-shadow: 0 8px 24px rgba(13, 71, 161, 0.2);
+      font-weight: 600;
+    }
+
+    .tabs-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    /* ===== FORM ===== */
+    .form-container {
+      max-width: 500px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.6);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(13, 71, 161, 0.15);
+      border: 2px solid rgba(13, 71, 161, 0.15);
+      backdrop-filter: blur(15px) saturate(200%);
       transition: all 0.3s ease;
     }
 
-    .specialty-tabs button.active {
-      background-color: #aaddff;
-      color: #004aad;
-      border-color: #004aad;
-      font-weight: bold;
-      box-shadow: 0 0 8px #aaddff;
+    .form-container:hover {
+      box-shadow: 0 12px 40px rgba(13, 71, 161, 0.2);
+      border-color: rgba(13, 71, 161, 0.25);
     }
 
-    .specialty-content {
-      display: none;
-      animation: fadeIn 0.5s ease forwards;
-    }
-
-    .specialty-content.active {
-      display: block;
-    }
-
-    .doctor-card {
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 12px;
-      padding: 20px 25px;
+    .form-group {
       margin-bottom: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      transition: background-color 0.3s ease;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      text-align: center;
-      cursor: pointer; /* مؤشر اليد عند المرور */
     }
 
-    .doctor-card:hover {
-      background: rgba(255, 255, 255, 0.3);
-    }
-
-    .doctor-name {
-      font-weight: 700;
-      font-size: 1.3rem;
-      color: #aaddff;
-      margin-bottom: 6px;
-      text-shadow: 0 0 5px #aaddff;
-    }
-
-    .doctor-specialty {
-      font-size: 1.1rem;
-      color: #d0d9ff;
-      margin-bottom: 12px;
-    }
-
-    .doctor-schedule {
+    .form-group label {
+      font-weight: 600;
+      color: #0d47a1;
+      margin-bottom: 8px;
       font-size: 1rem;
-      color: #cce0ff;
-      font-style: italic;
-      line-height: 1.4;
     }
 
-    .doctor-schedule span {
-      display: block;
+    .form-group input,
+    .form-group select {
+      padding: 12px 15px;
+      border: 2px solid rgba(13, 71, 161, 0.2);
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: 'Cairo', sans-serif;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      background: rgba(13, 71, 161, 0.03);
+      color: #0d47a1;
+      backdrop-filter: blur(10px);
     }
 
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
+    .form-group input::placeholder,
+    .form-group select {
+      color: rgba(13, 71, 161, 0.5);
     }
 
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #0d47a1;
+      background: rgba(13, 71, 161, 0.05);
+      box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.1);
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, #0d47a1, #1565c0);
+      color: #ffffff;
+      border: 2px solid transparent;
+      padding: 14px 30px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 100%;
+      margin-top: 10px;
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(13, 71, 161, 0.2);
+    }
+
+    .submit-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      transition: left 0.6s ease;
+    }
+
+    .submit-btn:hover::before {
+      left: 100%;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(13, 71, 161, 0.3);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: linear-gradient(135deg, rgba(13, 71, 161, 0.1), rgba(25, 118, 210, 0.1));
+      backdrop-filter: blur(20px) saturate(180%);
+      color: #0d47a1;
+      padding: 40px 20px;
+      text-align: center;
+      margin-top: 60px;
+      border-top: 2px solid rgba(13, 71, 161, 0.2);
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-content p {
+      margin: 0;
+      color: #0d47a1;
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-      main {
-        margin: 20px;
-        padding: 20px;
+      .header-content {
+        flex-direction: column;
+        gap: 15px;
       }
-      header h1 {
-        font-size: 2.2rem;
+
+      nav {
+        width: 100%;
       }
-      h2 {
+
+      .hero h2 {
+        font-size: 2rem;
+      }
+
+      .section-title h2 {
+        font-size: 2rem;
+      }
+
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-container {
+        padding: 30px 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 15px 0;
+      }
+
+      .header-content {
+        padding: 0 10px;
+      }
+
+      .logo-text h1 {
+        font-size: 1.4rem;
+      }
+
+      nav button {
+        font-size: 0.9rem;
+        padding: 8px 12px;
+      }
+
+      .hero {
+        padding: 40px 15px;
+      }
+
+      .hero h2 {
         font-size: 1.6rem;
       }
-      nav button {
-        min-width: 100px;
-        font-size: 1rem;
-        padding: 6px 12px;
+
+      main {
+        padding: 20px 10px;
       }
-      .specialty-tabs button {
-        min-width: 100px;
-        font-size: 0.9rem;
-        padding: 5px 10px;
+
+      .section-title h2 {
+        font-size: 1.5rem;
       }
-      .doctor-card {
-        padding: 15px 20px;
+
+      .card-header {
+        padding: 20px 15px;
       }
-      .doctor-name {
-        font-size: 1.1rem;
+
+      .card-body {
+        padding: 20px 15px;
       }
-      .doctor-specialty {
-        font-size: 1rem;
-        margin-bottom: 10px;
+
+      .tabs-buttons {
+        flex-direction: column;
       }
-      .doctor-schedule {
-        font-size: 0.95rem;
+
+      .tab-btn {
+        width: 100%;
+      }
+
+      .chatbot-container {
+        width: 100% !important;
+        height: 80vh !important;
+        max-width: 100% !important;
+        border-radius: 0 !important;
+        bottom: 0 !important;
+        right: 0 !important;
       }
     }
-    /* تحسين التناسق على الموبايل */
-@media (max-width: 480px) {
-  header .logo {
-    width: 70px;
-    height: 70px;
-  }
 
-  header h1 {
-    font-size: 1.8rem !important;
-    line-height: 1.4;
-  }
+    /* ===== CHATBOT STYLES ===== */
+    #chatbot-widget {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      font-family: 'Cairo', sans-serif;
+    }
 
-  nav {
-    flex-direction: column;
-    align-items: center;
-  }
+    .chatbot-toggle {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #0d47a1, #1565c0);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.8rem;
+      box-shadow: 0 8px 24px rgba(13, 71, 161, 0.3);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      animation: pulse 2s infinite;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
 
-  nav button {
-    width: 90%;
-    font-size: 1rem;
-  }
+    .chatbot-toggle::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      transition: left 0.6s ease;
+    }
 
-  main {
-    margin: 10px;
-    padding: 15px;
-  }
+    .chatbot-toggle:hover::before {
+      left: 100%;
+    }
 
-  h2 {
-    font-size: 1.3rem;
-  }
+    .chatbot-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 12px 32px rgba(13, 71, 161, 0.4);
+    }
 
-  p, li {
-    font-size: 1rem;
-    line-height: 1.6;
-  }
-}
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
 
-  </style>
+    .chatbot-toggle.hidden {
+      display: none;
+    }
+
+    .chatbot-container {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 380px;
+      height: 600px;
+      background: rgba(255, 255, 255, 0.8);
+      border: 2px solid rgba(13, 71, 161, 0.2);
+      border-radius: 20px;
+      backdrop-filter: blur(20px) saturate(200%);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 15px 50px rgba(13, 71, 161, 0.15);
+      display: none;
+    }
+
+    .chatbot-container.active {
+      display: flex;
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .chatbot-header {
+      background: linear-gradient(135deg, rgba(13, 71, 161, 0.2), rgba(25, 118, 210, 0.2));
+      padding: 20px;
+      border-bottom: 2px solid rgba(13, 71, 161, 0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .chatbot-header h3 {
+      margin: 0;
+      color: #0d47a1;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .chatbot-close {
+      background: none;
+      border: none;
+      color: #0d47a1;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .chatbot-close:hover {
+      transform: rotate(90deg);
+      color: #1565c0;
+    }
+
+    .chatbot-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .chatbot-messages::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .chatbot-messages::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+
+    .chatbot-messages::-webkit-scrollbar-thumb {
+      background: rgba(13, 71, 161, 0.3);
+      border-radius: 10px;
+    }
+
+    .chatbot-messages::-webkit-scrollbar-thumb:hover {
+      background: rgba(13, 71, 161, 0.5);
+    }
+
+    .chatbot-message {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .chatbot-message p {
+      margin: 0;
+      padding: 12px 16px;
+      border-radius: 15px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      max-width: 80%;
+    }
+
+    .bot-message {
+      justify-content: flex-start;
+    }
+
+    .bot-message p {
+      background: rgba(13, 71, 161, 0.1);
+      color: #0d47a1;
+      border: 1px solid rgba(13, 71, 161, 0.2);
+    }
+
+    .user-message {
+      justify-content: flex-end;
+    }
+
+    .user-message p {
+      background: linear-gradient(135deg, #0d47a1, #1565c0);
+      color: #ffffff;
+      border: 1px solid rgba(13, 71, 161, 0.3);
+    }
+
+    .chatbot-suggestions {
+      padding: 10px 15px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      border-top: 2px solid rgba(13, 71, 161, 0.1);
+      overflow-y: auto;
+      max-height: 100px;
+      background: rgba(13, 71, 161, 0.02);
+    }
+
+    .chatbot-suggestions::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .chatbot-suggestions::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .chatbot-suggestions::-webkit-scrollbar-thumb {
+      background: rgba(13, 71, 161, 0.2);
+      border-radius: 10px;
+    }
+
+    .suggestion-btn {
+      background: rgba(13, 71, 161, 0.08);
+      border: 1px solid rgba(13, 71, 161, 0.2);
+      color: #0d47a1;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Cairo', sans-serif;
+      white-space: nowrap;
+    }
+
+    .suggestion-btn:hover {
+      background: rgba(13, 71, 161, 0.15);
+      border-color: #0d47a1;
+      color: #1565c0;
+      box-shadow: 0 2px 8px rgba(13, 71, 161, 0.15);
+    }
+
+    .chatbot-input-area {
+      padding: 15px 20px;
+      border-top: 2px solid rgba(13, 71, 161, 0.1);
+      display: flex;
+      gap: 8px;
+      border-radius: 0 0 20px 20px;
+      align-items: center;
+      background: rgba(13, 71, 161, 0.02);
+    }
+
+
+
+    .chatbot-input {
+      flex: 1;
+      background: rgba(13, 71, 161, 0.05);
+      border: 2px solid rgba(13, 71, 161, 0.2);
+      border-radius: 20px;
+      padding: 10px 15px;
+      font-size: 0.95rem;
+      color: #0d47a1;
+      font-family: 'Cairo', sans-serif;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .chatbot-input::placeholder {
+      color: rgba(13, 71, 161, 0.5);
+    }
+
+    .chatbot-input:focus {
+      border-color: #0d47a1;
+      background: rgba(13, 71, 161, 0.1);
+      box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.1);
+    }
+
+    .chatbot-send {
+      background: linear-gradient(135deg, #0d47a1, #1565c0);
+      border: 1px solid rgba(13, 71, 161, 0.3);
+      color: #ffffff;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chatbot-send:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(13, 71, 161, 0.3);
+      background: linear-gradient(135deg, #1565c0, #1976d2);
+    }
+  
+      /* ===== BOOKING MODAL ===== */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.3s ease;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    .modal-content {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9));
+      border-radius: 25px;
+      padding: 40px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 20px 60px rgba(13, 71, 161, 0.3);
+      border: 2px solid rgba(13, 71, 161, 0.1);
+      backdrop-filter: blur(20px) saturate(200%);
+      animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      border-bottom: 2px solid rgba(13, 71, 161, 0.1);
+      padding-bottom: 15px;
+    }
+    .modal-header h2 {
+      margin: 0;
+      color: #0d47a1;
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      color: #0d47a1;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .modal-close:hover {
+      color: #1565c0;
+      transform: rotate(90deg);
+    }
+    .booking-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .booking-form-group {
+      display: flex;
+      flex-direction: column;
+    }
+    .booking-form-group label {
+      font-weight: 600;
+      color: #0d47a1;
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+    .booking-form-group input, .booking-form-group textarea {
+      padding: 12px 15px;
+      border: 2px solid rgba(13, 71, 161, 0.2);
+      border-radius: 12px;
+      font-size: 1rem;
+      font-family: ''Cairo'', sans-serif;
+      background: rgba(13, 71, 161, 0.03);
+      color: #0d47a1;
+    }
+    .booking-form-group input:focus, .booking-form-group textarea:focus {
+      outline: none;
+      border-color: #0d47a1;
+      background: rgba(13, 71, 161, 0.05);
+      box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.1);
+    }
+    .booking-form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .booking-doctor-info {
+      background: linear-gradient(135deg, rgba(13, 71, 161, 0.1), rgba(25, 118, 210, 0.1));
+      padding: 15px;
+      border-radius: 12px;
+      border-left: 4px solid #0d47a1;
+      margin-bottom: 10px;
+    }
+    .booking-doctor-info p {
+      margin: 0;
+      color: #0d47a1;
+      font-weight: 500;
+    }
+    .modal-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 25px;
+    }
+    .modal-btn {
+      flex: 1;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: ''Cairo'', sans-serif;
+    }
+    .modal-btn-cancel {
+      background: rgba(13, 71, 161, 0.1);
+      color: #0d47a1;
+      border: 2px solid rgba(13, 71, 161, 0.2);
+    }
+    .modal-btn-cancel:hover {
+      background: rgba(13, 71, 161, 0.15);
+      border-color: #0d47a1;
+    }
+    .modal-btn-confirm {
+      background: linear-gradient(135deg, #0d47a1, #1565c0);
+      color: #ffffff;
+      border: 2px solid transparent;
+      box-shadow: 0 4px 15px rgba(13, 71, 161, 0.2);
+    }
+    .modal-btn-confirm:hover {
+      box-shadow: 0 8px 24px rgba(13, 71, 161, 0.3);
+      transform: translateY(-2px);
+    }
+</style>
 </head>
 <body>
+  <!-- BOOKING MODAL -->
+  <div id="bookingModal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>����� �����</h2>
+        <button class="modal-close" onclick="closeBookingModal()">�</button>
+      </div>
+      <div class="booking-doctor-info">
+        <p id="doctorInfo">�� �/ ��� ������</p>
+      </div>
+      <form class="booking-form" onsubmit="confirmBooking(event)">
+        <div class="booking-form-group">
+          <label for="patientName">����� ������</label>
+          <input type="text" id="patientName" placeholder="���� ���� ������" required>
+        </div>
+        <div class="booking-form-group">
+          <label for="patientPhone">��� ������</label>
+          <input type="tel" id="patientPhone" placeholder="01XXXXXXXXX" required>
+        </div>
+        <div class="booking-form-group">
+          <label for="bookingNotes">������� ������</label>
+          <textarea id="bookingNotes" placeholder="���� �� ������� �� ��������� ����..."></textarea>
+        </div>
+        <div class="modal-buttons">
+          <button type="button" class="modal-btn modal-btn-cancel" onclick="closeBookingModal()">�����</button>
+          <button type="submit" class="modal-btn modal-btn-confirm">����� �����</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- HEADER & NAVIGATION -->
   <header>
-    <div class="header-container">
-      <img src="picture.png" alt="شعار المركز" class="logo"/>
-<h1 style="text-align: center;">مركز الخليل الطبي</h1>
+    <div class="header-content">
+      <div class="logo-section">
+        <img src="picture.png" alt="شعار المركز" class="logo-img"/>
+        <div class="logo-text">
+          <h1>الخليل الطبي</h1>
+          <p>مركز متخصص للعناية الصحية</p>
+        </div>
+      </div>
+      <nav>
+        <button class="nav-btn active" data-target="home">الرئيسية</button>
+        <button class="nav-btn" data-target="specialties">التخصصات</button>
+        <button class="nav-btn" data-target="contact">التواصل</button>
+        <button class="nav-btn" data-target="jobs">الوظائف</button>
+      </nav>
     </div>
   </header>
 
-  <nav>
-    <button class="nav-btn active" data-target="home">الرئيسية</button>
-    <button class="nav-btn" data-target="contact">التواصل</button>
-    <button class="nav-btn" data-target="specialties">جدول العيادات</button>
-    <button class="nav-btn" data-target="operations">قسم العمليات</button>
-    <button class="nav-btn" data-target="lab">المعمل</button>
-    <button class="nav-btn" data-target="jobs">التوظيف</button>
-  </nav>
-
-  <main>
-    <section id="home" class="active">
-      <h2 style="text-align: center; width: 100%;">مرحباً بكم في مركز الخليل الطبي</h2>
-      <p style="text-align: center; width: 100%;">
-        نلتزم بتقديم أفضل خدمات الرعاية الصحية بأعلى مستويات الجودة والاحترافية.
-        يضم مركزنا مجموعة من العيادات التخصصية التي تغطي مختلف التخصصات الطبية، بالإضافة إلى معمل تحاليل مجهز بأحدث التقنيات.
-        كما يتوفر لدينا قسم الطوارئ وغرف العمليات المجهزة لتقديم الخدمات الطبية بأمان وكفاءة.
-      </p>
-    </section>
-
-    <section id="about">
-      <h2>عن المركز</h2>
-      <p>
-        مركز الخليل الطبي يلتزم بتقديم أفضل خدمات الرعاية الصحية بأعلى مستويات الجودة والاحترافية.
-        يضم المركز عيادات تخصصية، معمل تحاليل، قسم طوارئ وغرف عمليات مجهزة بأحدث التقنيات.
-      </p>
-      <p>
-        نحن هنا لخدمتكم في كل وقت، ونسعى جاهدين لتوفير بيئة صحية آمنة ومريحة تساعدكم على التعافي والعيش بصحة جيدة.
-      </p>
-    </section>
-
-    <section id="contact">
-      <h2>العنوان وأرقام التواصل</h2>
-      <p><strong>العنوان:</strong> امتداد شارع أحمد عرابي - أمام البنك الأهلي - مدينة الفردوس - البراجيل</p>
-      <p><strong>أرقام التواصل:</strong></p>
-      <ul>
-        <li>01040538124</li>
-        <li>01101586178</li>
-        <li>0237059816</li>
-    </section>
-
-     <section id="operations">
-      <h1>قريبا</h1>
-    </section>
-
-  <section id="lab">
-        <div class="doctor-card" data-whatsapp-message="أرغب في الاستفسار عن التحاليل الطبية">
-          <div class="doctor-name">اضغط لارسال التحاليل الطبية</div>
-          <div class="doctor-specialty"></div>
-          <div class="doctor-schedule">
-            <span>طوال اليوم على مدار الأسبوع</span>
-              <span></span>
-            <span>حلل و اطمن</span>
-          </div>
-        </div>
-      </div>
-        </section>
-
-    <section id="specialties">
-      <h2>التخصصات المتوفرة</h2>
-
-      <div class="specialty-tabs">
-        <button class="specialty-btn" data-specialty="neurology">المخ والأعصاب</button>
-        <button class="specialty-btn" data-specialty="dermatology">الجلدية و التجميل</button>
-        <button class="specialty-btn" data-specialty="ent">الأنف والأذن</button>
-        <button class="specialty-btn" data-specialty="teeth">الاسنان</button>
-        <button class="specialty-btn" data-specialty="woman">النساء و التوليد</button>
-        <button class="specialty-btn" data-specialty="child">الاطفال و حديثي الولادة</button>
-        <button class="specialty-btn" data-specialty="bones">العظام</button>
-        <button class="specialty-btn" data-specialty="internal">الباطنة العامة</button>
-         <button class="specialty-btn" data-specialty="feeding">التغذية العلاجية</button>
-      </div>
-      
-      <div id="neurology" class="specialty-content active">
-        <div class="doctor-card" data-whatsapp-message="أرغب في حجز موعد مع د/ مصطفى أبو الليل - تخصص المخ والأعصاب">
-          <div class="doctor-name">د/ مصطفى أبو الليل</div>
-          <div class="doctor-specialty">استشاري جراحة المخ والأعصاب والعمود الفقري</div>
-          <div class="doctor-schedule">
-            <span>الثلاثاء, الجمعة</span>
-            <span>الساعة ٧ مساءً</span>
-          </div>
-        </div>
-      </div>
-
-       <div id="teeth" class="specialty-content">
-        <div class="doctor-card" data-whatsapp-message="أرغب في حجز موعد مع د/ عبدالرحمن يوسف - تخصص الاسنان">
-          <div class="doctor-name">د/ عبدالرحمن يوسف</div>
-          <div class="doctor-specialty">اخصائي الوجه و الفكيين</div>
-          <div class="doctor-schedule">
-            <span>السبت, الثلاثاء, الجمعة</span>
-            <span>الساعة ٦ مساءً</span>
-          </div>
-        </div>
-       </div>
-
- <div id="teeth" class="specialty-content">
-        <div class="doctor-card" data-whatsapp-message="أرغب في حجز موعد مع د/ عبدالرحمن علي - تخصص الاسنان">
-          <div class="doctor-name">د/ عبدالرحمن علي</div>
-          <div class="doctor-specialty">اخصائي الوجه و الفكيين</div>
-          <div class="doctor-schedule">
-            <span>الاحد, الخميس</span>
-            <span>الساعة ٦ مساءً</span>
-          </div>
-        </div>
-       </div>
-
-      <div id="dermatology" class="specialty-content">
-        <div class="doctor-card" data-whatsapp-message="أرغب في حجز موعد مع د/ محمد عماد الدين - تخصص الجلدية">
-          <div class="doctor-name">د/ محمد عماد الدين</div>
-          <div class="doctor-specialty">اخصائي الجلدية بمستشفى الحوض المرصود</div>
-          <div class="doctor-schedule">
-            <span>الأحد</span>
-            <span>الساعة ٧ مساءً</span>
-          </div>
-        </div>
-      </div>
-
-      <div id="ent" class="specialty-content">
-        <div class="doctor-card" data-whatsapp-message="أرغب في حجز موعد مع د/ معتصم طُبال - تخصص الأنف والأذن والحنجرة">
-          <div class="doctor-name">د/ معتصم طُبال</div>
-          <div class="doctor-specialty">اخصائي الأنف والأذن والحنجرة بمستشفى الطلبة جامعة القاهرة</div>
-          <div class="doctor-schedule">
-            <span>الأحد، الأربعاء</span>
-            <span>الساعة ٨ مساءً</span>
-          </div>
-        </div>
-      </div>
-
-      <div id="woman" class="specialty-content">
-        <div class="doctor-card" data-whatsapp-message="أرغب في حجز موعد مع د/ سمر سيد صالح - تخصص النساء و التوليد">
-          <div class="doctor-name">د/ سمر سيد صالح</div>
-          <div class="doctor-specialty">اخصائية النساء و التوليد</div>
-          <div class="doctor-schedule">
-            <span>الاربعاء</span>
-            <span>الساعة ٦ مساءً</span>
-          </div>
-        </div>
-      </div>
-
-      <div id="woman" class="specialty-content">
-        <div class="doctor-card" data-whatsapp-message="أرغب في حجز موعد مع د/ فاتن يوسف - تخصص النساء و التوليد">
-          <div class="doctor-name">د/ فاتن يوسف</div>
-          <div class="doctor-specialty">اخصائية النساء و التوليد</div>
-          <div class="doctor-schedule">
-            <span>السبت, الاثنين, الجمعة </span>
-            <span>الساعة ٧ مساءً</span>
-          </div>
-        </div>
-      </div>
-
-      <div id="child" class="specialty-content">
-        <div class="doctor-card" data-whatsapp-message="أرغب في حجز موعد مع د/ عبدالله محمود - تخصص الاطفال و حديثي الولادة">
-          <div class="doctor-name">د/ عبدالله محمود</div>
-          <div class="doctor-specialty">طبيب الاطفال و حديثي الولادة بمستشفى تبارك</div>
-          <div class="doctor-schedule">
-            <span>الاحد, الثلاثاء</span>
-            <span>الساعة ٨ مساءً</span>
-          </div>
-        </div>
-      </div>
-
-         <div id="bones" class="specialty-content">
-        <div class="doctor-card" data-whatsapp-message="أرغب في حجز موعد مع د/ محمد ناصر - تخصص العظام  ">
-          <div class="doctor-name">د/ محمد ناصر</div>
-          <div class="doctor-specialty">اخصائي العظام و العمود الفقري</div>
-          <div class="doctor-schedule">
-            <span>السبت, الثلاثاء, الخميس</span>
-            <span>الساعة ٨ مساءً</span>
-          </div>
-        </div>
-      </div>
-
-      <div id="internal" class="specialty-content">
-        <div class="doctor-card" data-whatsapp-message="أرغب في حجز موعد مع د/ مصطفى خالد - تخصص الباطنة العامة  ">
-          <div class="doctor-name">د/ مصطفى خالد</div>
-          <div class="doctor-specialty">اخصائي الباطنة العامة</div>
-          <div class="doctor-schedule">
-            <span>الاثنين, الخميس</span>
-            <span>الساعة ٧ مساءً</span>
-          </div>
-        </div>
-      </div>
-
-            <div id="feeding" class="specialty-content">
-        <div class="doctor-card" data-whatsapp-message="أرغب في حجز موعد مع د/ نهى أبوالعلا - تخصص التغذية العلاجية  ">
-          <div class="doctor-name">د/ نهى أبوالعلا</div>
-          <div class="doctor-specialty">اخصائية التغذية العلاجية</div>
-          <div class="doctor-schedule">
-            <span>الاثنين, الاربعاء</span>
-            <span>الساعة ٦ مساءً</span>
-          </div>
-        </div>
-      </div>
-
-    </section>
-    <section id="jobs">
-  <h2>التقديم على وظيفة</h2>
-
-  <div style="max-width:400px;margin:auto">
-    <label>الاسم</label>
-    <input id="jobName" type="text" style="width:100%;padding:8px;margin:5px 0">
-
-    <label>رقم التواصل</label>
-    <input id="jobPhone" type="tel" style="width:100%;padding:8px;margin:5px 0">
-
-    <label>السن</label>
-    <input id="jobAge" type="number" style="width:100%;padding:8px;margin:5px 0">
-
-    <label>نوع الوظيفة</label>
-    <select id="jobType" style="width:100%;padding:8px;margin:5px 0">
-      <option value="استقبال">استقبال</option>
-      <option value="نظافة">نظافة</option>
-      <option value="تمريض">تمريض</option>
-    </select>
-
-    <button onclick="sendJobToWhatsApp()" style="
-      width:100%;
-      background:#25d366;
-      border:none;
-      padding:12px;
-      color:white;
-      font-size:18px;
-      border-radius:8px;
-      margin-top:10px;
-      cursor:pointer
-    ">
-      إرسال عبر واتساب
-    </button>
+  <!-- HERO SECTION -->
+  <div class="hero">
+    <div class="hero-content">
+      <h2>مرحباً بكم في مركز الخليل الطبي</h2>
+      <p>نقدم أفضل الخدمات الصحية بأحدث التقنيات الطبية وكادر متخصص من أطباء الثقة</p>
+    </div>
   </div>
-</section>
 
+  <!-- MAIN CONTENT -->
+  <main>
+    <!-- HOME SECTION -->
+    <section id="home" class="active">
+      <div class="section-title">
+        <h2>عن المركز</h2>
+        <p>مركز متخصص يجمع بين الخبرة والتكنولوجيا الحديثة</p>
+      </div>
+
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon">🏥</div>
+            <h3 class="card-title">عيادات متخصصة</h3>
+          </div>
+          <div class="card-body">
+            <p class="card-text">مجموعة من العيادات التخصصية المتطورة تغطي مختلف التخصصات الطبية بأحدث التقنيات والأجهزة الطبية.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon">🔬</div>
+            <h3 class="card-title">معمل تحاليل</h3>
+          </div>
+          <div class="card-body">
+            <p class="card-text">معمل مجهز بأحدث الأجهزة والتقنيات لتقديم نتائج دقيقة وسريعة مع التزام عالي بمعايير الجودة.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon">🚑</div>
+            <h3 class="card-title">قسم الطوارئ</h3>
+          </div>
+          <div class="card-body">
+            <p class="card-text">فريق متخصص بخدمات الطوارئ والإسعافات الأولية متوفر على مدار الساعة لخدمتكم.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SPECIALTIES SECTION -->
+    <section id="specialties">
+      <div class="section-title">
+        <h2>التخصصات الطبية</h2>
+        <p>فريق متخصص من الأطباء ذوي الخبرة والكفاءة العالية</p>
+      </div>
+
+      <div class="tabs-container">
+        <div class="tabs-buttons">
+          <button class="tab-btn active" data-specialty="neurology">المخ والأعصاب</button>
+          <button class="tab-btn" data-specialty="dermatology">الجلدية</button>
+          <button class="tab-btn" data-specialty="ent">الأنف والأذن</button>
+          <button class="tab-btn" data-specialty="teeth">الأسنان</button>
+          <button class="tab-btn" data-specialty="woman">النساء</button>
+          <button class="tab-btn" data-specialty="child">الأطفال</button>
+          <button class="tab-btn" data-specialty="bones">العظام</button>
+          <button class="tab-btn" data-specialty="internal">الباطنة</button>
+          <button class="tab-btn" data-specialty="feeding">التغذية</button>
+        </div>
+
+        <div class="tabs-content" id="specialties-content">
+          <!-- يتم ملؤها بواسطة JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact">
+      <div class="section-title">
+        <h2>تواصل معنا</h2>
+        <p>نحن هنا لخدمتك على مدار الساعة</p>
+      </div>
+
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon">📍</div>
+            <h3 class="card-title">العنوان</h3>
+          </div>
+          <div class="card-body">
+            <p class="card-text">امتداد شارع أحمد عرابي - أمام البنك الأهلي - مدينة الفردوس - البراجيل</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon">📞</div>
+            <h3 class="card-title">أرقام التواصل</h3>
+          </div>
+          <div class="card-body">
+            <div class="schedule-item">
+              <span>01040538124</span>
+            </div>
+            <div class="schedule-item">
+              <span>01101586178</span>
+            </div>
+            <div class="schedule-item">
+              <span>0237059816</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon">⏰</div>
+            <h3 class="card-title">ساعات العمل</h3>
+          </div>
+          <div class="card-body">
+            <div class="schedule-item">
+              <span>السبت - الخميس</span>
+              <span>8 ص - 10 م</span>
+            </div>
+            <div class="schedule-item">
+              <span>الجمعة</span>
+              <span>3 م - 10 م</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- JOBS SECTION -->
+    <section id="jobs">
+      <div class="section-title">
+        <h2>انضم لفريقنا</h2>
+        <p>نبحث عن أفراد متميزين للعمل معنا</p>
+      </div>
+
+      <div class="form-container">
+        <h3 style="color: var(--primary-color); margin-bottom: 25px; text-align: center;">تقديم طلب توظيف</h3>
+        
+        <div class="form-group">
+          <label for="jobName">الاسم الكامل</label>
+          <input type="text" id="jobName" placeholder="أدخل اسمك كاملاً">
+        </div>
+
+        <div class="form-group">
+          <label for="jobPhone">رقم الهاتف</label>
+          <input type="tel" id="jobPhone" placeholder="أدخل رقم هاتفك">
+        </div>
+
+        <div class="form-group">
+          <label for="jobAge">السن</label>
+          <input type="number" id="jobAge" placeholder="أدخل سنك">
+        </div>
+
+        <div class="form-group">
+          <label for="jobType">نوع الوظيفة</label>
+          <select id="jobType">
+            <option value="استقبال">استقبال</option>
+            <option value="نظافة">نظافة</option>
+            <option value="تمريض">تمريض</option>
+          </select>
+        </div>
+
+        <button class="submit-btn" onclick="sendJobToWhatsApp()">إرسال الطلب عبر واتس آب</button>
+      </div>
+    </section>
   </main>
 
+  <!-- FOOTER -->
   <footer>
-    &copy; 2024 مركز الخليل الطبي - جميع الحقوق محفوظة
+    <div class="footer-content">
+      <p>&copy; 2024 مركز الخليل الطبي - جميع الحقوق محفوظة</p>
+    </div>
   </footer>
 
+  <!-- CHAT BOT -->
+  <div id="chatbot-widget">
+    <div id="chatbot-toggle" class="chatbot-toggle">
+      <span>💬</span>
+    </div>
+    
+    <div id="chatbot-container" class="chatbot-container">
+      <div class="chatbot-header">
+        <h3>مساعدك الذكي</h3>
+        <button id="chatbot-close" class="chatbot-close">&times;</button>
+      </div>
+      
+      <div id="chatbot-messages" class="chatbot-messages">
+        <div class="chatbot-message bot-message">
+          <p>مرحباً! 👋 أنا مساعدك الذكي. كيف يمكنني مساعدتك؟</p>
+        </div>
+      </div>
+      
+      <div class="chatbot-suggestions">
+        <button class="suggestion-btn" onclick="sendMessage('ما هي ساعات العمل؟')">ساعات العمل</button>
+        <button class="suggestion-btn" onclick="sendMessage('أريد حجز موعد')">حجز موعد</button>
+        <button class="suggestion-btn" onclick="sendMessage('ما هي التخصصات المتوفرة؟')">التخصصات</button>
+        <button class="suggestion-btn" onclick="sendMessage('معلومات التواصل')">التواصل</button>
+        <button class="suggestion-btn" onclick="sendMessage('المخ والأعصاب')">🧠 أعصاب</button>
+        <button class="suggestion-btn" onclick="sendMessage('الجلدية')">🩹 جلدية</button>
+        <button class="suggestion-btn" onclick="sendMessage('الأنف والأذن')">👂 أنف وأذن</button>
+        <button class="suggestion-btn" onclick="sendMessage('الأسنان')">🦷 أسنان</button>
+        <button class="suggestion-btn" onclick="sendMessage('النساء والتوليد')">👩‍⚕️ نسائي</button>
+        <button class="suggestion-btn" onclick="sendMessage('الأطفال')">👶 أطفال</button>
+        <button class="suggestion-btn" onclick="sendMessage('العظام')">🦴 عظام</button>
+        <button class="suggestion-btn" onclick="sendMessage('الباطنة')">🏥 باطنة</button>
+        <button class="suggestion-btn" onclick="sendMessage('في تغذية')">🥗 تغذية</button>
+      </div>
+      
+      <div class="chatbot-input-area">
+        <input type="text" id="chatbot-input" class="chatbot-input" placeholder="اكتب رسالتك..." onkeypress="handleKeyPress(event)">
+        <button id="chatbot-send" class="chatbot-send" onclick="sendChatMessage()">إرسال</button>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // التنقل بين الصفحات الرئيسية
-    const navButtons = document.querySelectorAll('nav .nav-btn');
+    // Doctors Data
+    const doctorsData = {
+      neurology: [
+        {
+          name: 'د/ مصطفى أبو الليل',
+          specialty: 'استشاري جراحة المخ والأعصاب',
+          schedule: ['الثلاثاء، الجمعة', 'الساعة 7 مساءً']
+        }
+      ],
+      dermatology: [
+        {
+          name: 'د/ محمد عماد الدين',
+          specialty: 'اخصائي الجلدية',
+          schedule: ['الأحد', 'الساعة 7 مساءً']
+        }
+      ],
+      ent: [
+        {
+          name: 'د/ معتصم طُبال',
+          specialty: 'اخصائي الأنف والأذن والحنجرة',
+          schedule: ['الأحد، الأربعاء', 'الساعة 8 مساءً']
+        }
+      ],
+      teeth: [
+        {
+          name: 'د/ عبدالرحمن يوسف',
+          specialty: 'اخصائي الوجه والفكيين',
+          schedule: ['السبت، الثلاثاء، الجمعة', 'الساعة 6 مساءً']
+        },
+        {
+          name: 'د/ عبدالرحمن علي',
+          specialty: 'اخصائي الوجه والفكيين',
+          schedule: ['الأحد، الخميس', 'الساعة 6 مساءً']
+        }
+      ],
+      woman: [
+        {
+          name: 'د/ سمر سيد صالح',
+          specialty: 'اخصائية النساء والتوليد',
+          schedule: ['الأربعاء', 'الساعة 6 مساءً']
+        },
+        {
+          name: 'د/ فاتن يوسف',
+          specialty: 'اخصائية النساء والتوليد',
+          schedule: ['السبت، الاثنين، الجمعة', 'الساعة 7 مساءً']
+        }
+      ],
+      child: [
+        {
+          name: 'د/ عبدالله محمود',
+          specialty: 'طبيب الأطفال وحديثي الولادة',
+          schedule: ['الأحد، الثلاثاء', 'الساعة 8 مساءً']
+        }
+      ],
+      bones: [
+        {
+          name: 'د/ محمد ناصر',
+          specialty: 'اخصائي العظام والعمود الفقري',
+          schedule: ['السبت، الثلاثاء، الخميس', 'الساعة 8 مساءً']
+        }
+      ],
+      internal: [
+        {
+          name: 'د/ مصطفى خالد',
+          specialty: 'اخصائي الباطنة العامة',
+          schedule: ['الاثنين، الخميس', 'الساعة 7 مساءً']
+        }
+      ],
+      feeding: [
+        {
+          name: 'د/ نهى أبوالعلا',
+          specialty: 'اخصائية التغذية العلاجية',
+          schedule: ['الاثنين، الأربعاء', 'الساعة 6 مساءً']
+        }
+      ]
+    };
+
+    // Navigation
+    const navButtons = document.querySelectorAll('.nav-btn');
     const sections = document.querySelectorAll('main > section');
 
-    navButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        navButtons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-
-        const target = button.getAttribute('data-target');
-        sections.forEach(section => {
-          if (section.id === target) {
-            section.classList.add('active');
-          } else {
-            section.classList.remove('active');
-          }
-        });
-      });
-    });
-
-    // التبديل بين التخصصات داخل قسم التخصصات
-    const specialtyButtons = document.querySelectorAll('.specialty-tabs .specialty-btn');
-    const specialtyContents = document.querySelectorAll('.specialty-content');
-
-    specialtyButtons.forEach(btn => {
+    navButtons.forEach(btn => {
       btn.addEventListener('click', () => {
-        specialtyButtons.forEach(b => b.classList.remove('active'));
+        navButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
-        const specialty = btn.getAttribute('data-specialty');
-        specialtyContents.forEach(content => {
-          if (content.id === specialty) {
-            content.classList.add('active');
-          } else {
-            content.classList.remove('active');
-          }
+        const target = btn.getAttribute('data-target');
+        sections.forEach(section => {
+          section.classList.remove('active');
         });
+        document.getElementById(target).classList.add('active');
       });
     });
 
-      // فتح واتساب عند الضغط على بطاقة الدكتور
-    const whatsappNumber = "201040538124"; // استبدل برقم الواتساب الصحيح بصيغة دولية بدون + أو 00
+    // Specialties Tabs
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContent = document.getElementById('specialties-content');
 
-    const doctorCards = document.querySelectorAll('.doctor-card');
-    doctorCards.forEach(card => {
-      card.addEventListener('click', () => {
-        const message = card.getAttribute('data-whatsapp-message');
-        if (message) {
-          const encodedMessage = encodeURIComponent(message);
-          const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-          window.open(whatsappURL, '_blank');
-        }
+    function renderDoctors(specialty) {
+      const doctors = doctorsData[specialty] || [];
+      tabContent.innerHTML = doctors.map(doctor => `
+        <div class="card" onclick="contactDoctor('${doctor.name}')">
+          <div class="card-header">
+            <div class="card-icon">👨‍⚕️</div>
+            <h3 class="card-title">${doctor.name}</h3>
+          </div>
+          <div class="card-body">
+            <p class="card-text" style="color: var(--secondary-color); font-weight: 600;">${doctor.specialty}</p>
+            <div class="card-schedule">
+              ${doctor.schedule.map(s => `<div class="schedule-item"><span>${s}</span></div>`).join('')}
+            </div>
+            <button class="card-btn">احجز موعداً الآن</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const specialty = btn.getAttribute('data-specialty');
+        renderDoctors(specialty);
       });
+    });
+
+    // Initial render
+    renderDoctors('neurology');
+
+    // WhatsApp Functions
+    const whatsappNumber = "201040538124";
+
+    function contactDoctor(doctorName) {
+      // فتح نافذة الحجز بدلاً من فتح WhatsApp مباشرة
+      document.getElementById('bookingModal').classList.add('active');
+      document.getElementById('doctorInfo').innerHTML = `مع د/ ${doctorName}`;
+      // حفظ اسم الطبيب لاستخدامه عند التأكيد
+      window.selectedDoctor = doctorName;
+      // تنظيف الحقول
+      document.getElementById('patientName').value = '';
+      document.getElementById('patientPhone').value = '';
+      document.getElementById('bookingNotes').value = '';
+    }
+
+    function closeBookingModal() {
+      document.getElementById('bookingModal').classList.remove('active');
+    }
+
+    function confirmBooking(event) {
+      event.preventDefault();
+      
+      const patientName = document.getElementById('patientName').value.trim();
+      const patientPhone = document.getElementById('patientPhone').value.trim();
+      const bookingNotes = document.getElementById('bookingNotes').value.trim();
+      const doctorName = window.selectedDoctor || 'الطبيب';
+      
+      if (!patientName || !patientPhone) {
+        alert('يرجى ملء جميع الحقول المطلوبة');
+        return;
+      }
+      
+      // تكوين الرسالة
+      let message = `حجز موعد جديد:\n\nالمريض: ${patientName}\nرقم الهاتف: ${patientPhone}\nالطبيب: ${doctorName}`;
+      if (bookingNotes) {
+        message += `\nملاحظات: ${bookingNotes}`;
+      }
+      
+      // فتح WhatsApp مع الرسالة
+      const encodedMessage = encodeURIComponent(message);
+      window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
+      
+      // إغلاق النافذة
+      closeBookingModal();
+    }
+
+    // إغلاق النافذة عند الضغط على الخلفية
+    document.getElementById('bookingModal').addEventListener('click', function(event) {
+      if (event.target === this) {
+        closeBookingModal();
+      }
     });
 
     function sendJobToWhatsApp() {
-  const name = document.getElementById("jobName").value;
-  const phone = document.getElementById("jobPhone").value;
-  const age = document.getElementById("jobAge").value;
-  const type = document.getElementById("jobType").value;
+      const name = document.getElementById('jobName').value;
+      const phone = document.getElementById('jobPhone').value;
+      const age = document.getElementById('jobAge').value;
+      const type = document.getElementById('jobType').value;
 
-  if (!name || !phone || !age) {
-    alert("من فضلك املأ جميع البيانات");
-    return;
-  }
+      if (!name || !phone || !age) {
+        alert('يرجى ملء جميع الحقول');
+        return;
+      }
 
-  const message = 
-`طلب توظيف:
-الاسم: ${name}
-رقم الهاتف: ${phone}
-السن: ${age}
-نوع الوظيفة: ${type}`;
+      const message = `طلب توظيف:\nالاسم: ${name}\nرقم الهاتف: ${phone}\nالسن: ${age}\nنوع الوظيفة: ${type}`;
+      const encodedMessage = encodeURIComponent(message);
+      window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
+    }
 
-  const encoded = encodeURIComponent(message);
-  const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encoded}`;
-  window.open(whatsappURL, "_blank");
-}
+    // ===== CHATBOT FUNCTIONS =====
+    const chatbotResponses = {
+      'ما هي ساعات العمل؟': 'ساعات العمل:\n📍 السبت - الخميس: 8 ص - 10 م\n📍 الجمعة: 3 م - 10 م',
+      'أريد حجز موعد': 'لحجز موعد، يرجى اختيار التخصص المطلوب من قسم التخصصات ثم الضغط على زر "احجز موعداً الآن" 📅',
+      'ما هي التخصصات المتوفرة؟': 'التخصصات المتوفرة:\n• المخ والأعصاب\n• الجلدية\n• الأنف والأذن\n• الأسنان\n• النساء والتوليد\n• الأطفال\n• العظام\n• الباطنة\n• التغذية العلاجية',
+      'معلومات التواصل': 'معلومات التواصل:\n📞 01040538124\n📞 01101586178\n📞 0237059816\n📍 امتداد شارع أحمد عرابي - البراجيل',
+    };
+
+    const keywordResponses = {
+      'ساعات|وقت|متى|عمل': 'ساعات العمل:\n📍 السبت - الخميس: 8 ص - 10 م\n📍 الجمعة: 3 م - 10 م',
+      'حجز|موعد|موعد|تحديد': 'لحجز موعد:\n1️⃣ اختر التخصص من قسم التخصصات\n2️⃣ اضغط على "احجز موعداً الآن"\n3️⃣ ستنقلك إلى واتس آب للتواصل 📱',
+      'تخصص|تخصصات|طبيب': 'التخصصات المتوفرة:\n🧠 المخ والأعصاب\n🩹 الجلدية\n👂 الأنف والأذن\n🦷 الأسنان\n👩‍⚕️ النساء والتوليد\n👶 الأطفال\n🦴 العظام\n🏥 الباطنة\n🥗 التغذية العلاجية',
+      'أعصاب|المخ|عصب|عصبي': 'تخصص المخ والأعصاب:\n🧠 د/ مصطفى أبو الليل\n📍 استشاري جراحة المخ والأعصاب\n📅 الأيام: الثلاثاء والجمعة\n⏰ الساعة: 7 مساءً\n📞 لحجز موعد اتصل: 01040538124',
+      'جلدية|جلد|حساسية|بشرة': 'تخصص الجلدية:\n🩹 د/ محمد عماد الدين\n📍 أخصائي الجلدية\n📅 اليوم: الأحد\n⏰ الساعة: 7 مساءً\n📞 لحجز موعد اتصل: 01040538124',
+      'أنف|أذن|حنجرة|سمع': 'تخصص الأنف والأذن والحنجرة:\n👂 د/ معتصم طُبال\n📍 أخصائي الأنف والأذن والحنجرة\n📅 الأيام: الأحد والأربعاء\n⏰ الساعة: 8 مساءً\n📞 لحجز موعد اتصل: 01040538124',
+      'أسنان|سن|عملية|تركيب': 'تخصص الأسنان:\n🦷 د/ عبدالرحمن يوسف\n📍 أخصائي الوجه والفكيين\n📅 الأيام: السبت والثلاثاء والجمعة\n⏰ الساعة: 6 مساءً\n🦷 د/ عبدالرحمن علي\n📅 الأيام: الأحد والخميس\n⏰ الساعة: 6 مساءً\n📞 لحجز موعد اتصل: 01040538124',
+      'نساء|توليد|حمل|نسائي': 'تخصص النساء والتوليد:\n👩‍⚕️ د/ سمر سيد صالح\n📍 أخصائية النساء والتوليد\n📅 اليوم: الأربعاء\n⏰ الساعة: 6 مساءً\n👩‍⚕️ د/ فاتن يوسف\n📍 أخصائية النساء والتوليد\n📅 الأيام: السبت والاثنين والجمعة\n⏰ الساعة: 7 مساءً\n📞 لحجز موعد اتصل: 01040538124',
+      'أطفال|طفل|رضيع|ولادة': 'تخصص الأطفال:\n👶 د/ عبدالله محمود\n📍 طبيب الأطفال وحديثي الولادة\n📅 الأيام: الأحد والثلاثاء\n⏰ الساعة: 8 مساءً\n📞 لحجز موعد اتصل: 01040538124',
+      'عظام|عمود|فقري|كسر': 'تخصص العظام والعمود الفقري:\n🦴 د/ محمد ناصر\n📍 أخصائي العظام والعمود الفقري\n📅 الأيام: السبت والثلاثاء والخميس\n⏰ الساعة: 8 مساءً\n📞 لحجز موعد اتصل: 01040538124',
+      'باطنة|قلب|معدة|كبد': 'تخصص الباطنة العامة:\n🏥 د/ مصطفى خالد\n📍 أخصائي الباطنة العامة\n📅 الأيام: الاثنين والخميس\n⏰ الساعة: 7 مساءً\n📞 لحجز موعد اتصل: 01040538124',
+      'تغذية|غذاء|غذائي|حمية|وزن': 'اختصاص التغذية العلاجية:\n🥗 د/ نهى أبوالعلا\n📍 أخصائية التغذية العلاجية\n📅 الأيام: الاثنين والأربعاء\n⏰ الساعة: 6 مساءً\n💙 تقدم استشارات غذائية متخصصة\n📞 لحجز موعد اتصل: 01040538124',
+      'تواصل|اتصال|رقم|هاتف|عنوان|موقع': 'معلومات التواصل:\n📞 01040538124\n📞 01101586178\n📞 0237059816\n📍 امتداد شارع أحمد عرابي - أمام البنك الأهلي - مدينة الفردوس - البراجيل',
+      'عيادة|مركز|قسم|خدمة': 'مركز الخليل الطبي يوفر:\n✅ عيادات متخصصة بأحدث التقنيات\n✅ معمل تحاليل مجهز برموز دقيقة\n✅ قسم طوارئ متخصص 24 ساعة\n✅ كادر طبي ذو خبرة عالية',
+      'معمل|تحليل|فحص|نتائج': 'معمل التحاليل:\n🔬 مجهز بأحدث الأجهزة والتقنيات\n⏱️ نتائج دقيقة وسريعة\n📋 معايير جودة عالية جداً\n📱 يمكنك الاتصال للاستفسار',
+      'طوارئ|حالة|إسعاف|سريعة': 'قسم الطوارئ:\n🚑 متاح 24 ساعة يومياً\n👨‍⚕️ فريق متخصص وذو كفاءة عالية\n⚡ استجابة سريعة للحالات الطارئة\n📞 اتصل: 01040538124',
+      'وظيفة|توظيف|عمل|تقديم': 'فرص التوظيف:\n💼 نرحب بطلبات التوظيف\n📋 اذهب إلى قسم الوظائف\n📝 ملء النموذج بالبيانات\n📱 سيتم التواصل معك عبر واتس آب',
+      'شكر|شكراً|شكرا|تمام|بس|تمام': 'أهلاً وسهلاً! 😊\nفي خدمتك دائماً 🎯\nإذا كان لديك أسئلة أخرى، لا تتردد! 💙',
+      'مرحبا|السلام|صباح|مساء': 'مرحباً! 👋\nأنا هنا لمساعدتك 😊\nكيف يمكنني خدمتك؟',
+      'من|أنت|ما|اسم': 'أنا مساعدك الذكي! 🤖\nأنا هنا لإجابة أسئلتك عن:\n✅ ساعات العمل\n✅ التخصصات والأطباء\n✅ معلومات التواصل\n✅ الخدمات المتوفرة\n✅ فرص التوظيف',
+      'أين|موقع|عنوان': '📍 العنوان: امتداد شارع أحمد عرابي\n📍 أمام: البنك الأهلي\n📍 المنطقة: مدينة الفردوس - البراجيل',
+      'سعر|تكلفة|سعر|أجرة': 'للاستفسار عن الأسعار والتكاليف:\n📱 اتصل بنا مباشرة\n☎️ 01040538124\nأو تواصل عبر الواتس آب 💬',
+      'أفضل|ممتاز|بارع|خبير': 'شكراً على ثقتك! 😊\nنحن نقدم:\n⭐ أفضل الخدمات الطبية\n⭐ كادر متخصص وذو خبرة\n⭐ تقنيات طبية حديثة\n⭐ رعاية صحية شاملة',
+      'عطلة|غلق|مفتوح|إجازة': 'ساعات العمل:\n📍 السبت - الخميس: 8 ص - 10 م\n📍 الجمعة: 3 م - 10 م\n✅ مفتوح يومياً حسب الجدول المذكور',
+      'استشارة|نصيحة|استفسار': 'للاستشارة الطبية:\n1️⃣ اختر التخصص المناسب\n2️⃣ احجز موعد مع الطبيب\n3️⃣ سيقدم لك الطبيب أفضل استشارة\n📱 أو اتصل: 01040538124',
+    };
+
+    function getChatbotResponse(message) {
+      message = message.trim();
+      
+      // البحث عن رد دقيق
+      for (let key in chatbotResponses) {
+        if (message === key) {
+          return chatbotResponses[key];
+        }
+      }
+
+      // البحث عن كلمات مفتاحية متعددة
+      const lowerMessage = message.toLowerCase();
+      
+      for (let keywords in keywordResponses) {
+        const keywordArray = keywords.split('|');
+        for (let keyword of keywordArray) {
+          if (lowerMessage.includes(keyword)) {
+            return keywordResponses[keywords];
+          }
+        }
+      }
+
+      // الردود الذكية بناءً على السياق
+      if (lowerMessage.includes('صباح') || lowerMessage.includes('مساء')) {
+        return 'صباح/مساء الخير! 🌅\nكيف يمكنني مساعدتك اليوم؟';
+      }
+
+      if (lowerMessage.includes('كيف') || lowerMessage.includes('ماذا')) {
+        return 'أنا هنا للإجابة على جميع أسئلتك! 😊\nيمكنك السؤال عن:\n✅ الخدمات المتاحة\n✅ ساعات العمل\n✅ التخصصات\n✅ كيفية الحجز\n✅ معلومات التواصل';
+      }
+
+      if (lowerMessage.includes('نعم') || lowerMessage.includes('موافق') || lowerMessage.includes('حسنا')) {
+        return 'رائع! 🎉\nما الخطوة التالية التي تريدها؟';
+      }
+
+      if (lowerMessage.includes('لا') || lowerMessage.includes('رفض')) {
+        return 'حسناً! 👍\nإذا كنت تريد شيء آخر، أنا هنا للمساعدة 😊';
+      }
+
+      if (lowerMessage.includes('شكرك') || lowerMessage.includes('شكرا') || lowerMessage.includes('مشكور')) {
+        return 'على الرحب والسعة! 🙏\nفي خدمتك دائماً 💙';
+      }
+
+      if (lowerMessage.includes('أنا') || lowerMessage.includes('اسمي')) {
+        return 'سعيد بلقاء! 👋\nكيف يمكنني مساعدتك؟';
+      }
+
+      if (lowerMessage.includes('دكتور') || lowerMessage.includes('طبيب') || lowerMessage.includes('د/')) {
+        return 'نحن نوفر أطباء متخصصين في:\n🧠 المخ والأعصاب\n🩹 الجلدية\n👂 الأنف والأذن\n🦷 الأسنان\n👩‍⚕️ النساء والتوليد\n👶 الأطفال\n🦴 العظام\n🏥 الباطنة\n🥗 التغذية\n\nأي تخصص تهتم به؟';
+      }
+
+      if (lowerMessage.includes('مساعدة') || lowerMessage.includes('احتاج')) {
+        return 'أنا هنا لمساعدتك! 🤝\nما الذي تحتاجه؟\n• حجز موعد\n• معلومات عن الخدمات\n• معلومات التواصل\n• معلومات عن التخصصات';
+      }
+
+      if (lowerMessage.includes('سؤال')) {
+        return 'بالطبع! اسأل ما شئت 😊\nأنا هنا للإجابة على جميع أسئلتك 🎯';
+      }
+
+      // الرد الافتراضي الذكي
+      return `شكراً على سؤالك! 😊\n\nإذا كنت تبحث عن:\n📞 اتصل بنا: 01040538124\n📍 موقعنا: امتداد شارع أحمد عرابي - البراجيل\n💻 يمكنك تصفح الموقع للمزيد من المعلومات\n\nأو أخبرني عما تحتاجه بالضبط! 😄`;
+    }
+
+    const chatbotToggle = document.querySelector('.chatbot-toggle');
+    const chatbotContainer = document.getElementById('chatbot-container');
+    const chatbotClose = document.getElementById('chatbot-close');
+    const chatbotMessages = document.getElementById('chatbot-messages');
+    const chatbotInput = document.getElementById('chatbot-input');
+
+    // Toggle chatbot
+    chatbotToggle.addEventListener('click', () => {
+      chatbotContainer.classList.toggle('active');
+      if (chatbotContainer.classList.contains('active')) {
+        chatbotInput.focus();
+      }
+    });
+
+    // Close chatbot
+    chatbotClose.addEventListener('click', () => {
+      chatbotContainer.classList.remove('active');
+    });
+
+    // Send message function with voice support
+    function sendChatMessage() {
+      const message = chatbotInput.value.trim();
+      if (!message) return;
+
+      // User message
+      const userMessageDiv = document.createElement('div');
+      userMessageDiv.className = 'chatbot-message user-message';
+      userMessageDiv.innerHTML = `<p>${message}</p>`;
+      chatbotMessages.appendChild(userMessageDiv);
+
+      // Clear input
+      chatbotInput.value = '';
+
+      // Scroll to bottom
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+
+      // Bot response
+      setTimeout(() => {
+        const botResponse = getChatbotResponse(message);
+        const botMessageDiv = document.createElement('div');
+        botMessageDiv.className = 'chatbot-message bot-message';
+        botMessageDiv.innerHTML = `<p>${botResponse}</p>`;
+        chatbotMessages.appendChild(botMessageDiv);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        speakMessage(botResponse);
+      }, 300);
+    }
+
+    // Send message function (for suggestion buttons)
+    function sendMessage(message) {
+      chatbotInput.value = message;
+      sendChatMessage();
+    }
+
+    // Handle Enter key
+    function handleKeyPress(event) {
+      if (event.key === 'Enter') {
+        sendChatMessage();
+      }
+    }
 
 
+
+    // Helper function to add bot message
+    function addBotMessage(message) {
+      const botMessageDiv = document.createElement('div');
+      botMessageDiv.className = 'chatbot-message bot-message';
+      botMessageDiv.innerHTML = `<p>${message}</p>`;
+      chatbotMessages.appendChild(botMessageDiv);
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
+
+
+    // Store original sendChatMessage
+    const originalSendMessage = function() {
+      const message = chatbotInput.value.trim();
+      if (!message) return;
+
+      const userMessageDiv = document.createElement('div');
+      userMessageDiv.className = 'chatbot-message user-message';
+      userMessageDiv.innerHTML = `<p>${message}</p>`;
+      chatbotMessages.appendChild(userMessageDiv);
+
+      chatbotInput.value = '';
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+
+      setTimeout(() => {
+        const botResponse = getChatbotResponse(message);
+        const botMessageDiv = document.createElement('div');
+        botMessageDiv.className = 'chatbot-message bot-message';
+        botMessageDiv.innerHTML = `<p>${botResponse}</p>`;
+        chatbotMessages.appendChild(botMessageDiv);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        speakMessage(botResponse);
+      }, 300);
+    };
+
+    // Handle Enter key
+    function handleKeyPress(event) {
+      if (event.key === 'Enter') {
+        sendChatMessage();
+      }
+    }
   </script>
 </body>
 </html>
