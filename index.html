@@ -103,12 +103,14 @@
     }
 
     .logo-img {
-      width: 60px;
-      height: 60px;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.95);
-      padding: 5px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 90px;
+      height: 90px;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.98);
+      padding: 8px;
+      box-shadow: 0 8px 24px rgba(108, 92, 231, 0.2);
+      border: 2px solid rgba(108, 92, 231, 0.1);
+      object-fit: contain;
     }
 
     .logo-text h1 {
@@ -1384,11 +1386,6 @@
     function contactDoctor(doctorName) {
       // فتح WhatsApp للتواصل مع الطبيب مباشرة
       const message = `أريد حجز موعد مع د/ ${doctorName}`;
-      const encodedMessage = encodeURIComponent(message);
-      window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
-    }
-
-    `;
       const encodedMessage = encodeURIComponent(message);
       window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
     }
