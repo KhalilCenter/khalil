@@ -113,13 +113,13 @@
   <script>
     const testsData = [
       { name: 'Urine - تحليل بول', price: '50 ج' },
-      { name: 'Cultures - مزرعة', price: '200 ج' },
+      { name: 'Cultures - مزرعة بول', price: '200 ج' },
       { name: 'Alb/Creatinine Ratio in urine - نسبة الالبومين/الكرياتينين في البول', price: '200 ج' },
       { name: 'Stool - تحليل براز', price: '50 ج' },
       { name: 'H.pylori test (جرثومة المعدة)', price: '200 ج' },
       { name: 'Occult blood in stool - دم خفي في البراز', price: '170 ج' },
       { name: 'CBC (صورة دم كاملة)', price: '80 ج' },
-      { name: 'HB%', price: '50 ج' },
+      { name: 'HB% (انيميا)', price: '50 ج' },
       { name: 'T.L.C - Total Leukocyte Count', price: '50 ج' },
       { name: 'Platelets - صفائح دموية', price: '50 ج' },
       { name: 'HB Electrophoresis - فصل الهيموجلوبين', price: '450 ج' },
@@ -127,15 +127,15 @@
       { name: 'PPS - Post Prandial Sugar - (سكر فاطر)', price: '50 ج' },
       { name: 'RBS - Random Blood Sugar - (سكر عشوائي)', price: '50 ج' },
       { name: 'HBA1C - السكر التراكمي', price: '150 ج' },
-      { name: 'Homa IR', price: '200 ج' },
-      { name: 'ASOT', price: '80 ج' },
+      { name: 'Homa IR (مقاومة انسولين)', price: '200 ج' },
+      { name: 'ASOT (روماتيزم)', price: '80 ج' },
       { name: 'CRP - C-Reactive Protein', price: '80 ج' },
       { name: 'RF - Rheumatoid Factor', price: '80 ج' },
       { name: 'ESR - سرعة الترسيب', price: '80 ج' },
       { name: 'ACCP (Anti-CCP)', price: '350 ج' },
       { name: 'Urea - يوريا (وظائف الكلى)', price: '50 ج' },
       { name: 'Creatinine - (وظائف الكلى) كرياتينين', price: '50 ج' },
-      { name: 'Uric Acid - (وظائف الكلى) حمض اليوريك', price: '50 ج' },
+      { name: 'Uric Acid - (وظائف الكلى) النقرس', price: '50 ج' },
       { name: 'S.GOT (AST) - وظائف كبد', price: '50 ج' },
       { name: 'S.GPT (ALT) - وظائف كبد', price: '50 ج' },
       { name: 'Albumin - ألبومين', price: '60 ج' },
@@ -143,10 +143,10 @@
       { name: 'Bilirubin Total - بيليروبين كلي', price: '50 ج' },
       { name: 'Total Protein - بروتين كلي', price: '150 ج' },
       { name: 'Cholesterol - كوليسترول', price: '50 ج' },
-      { name: 'Triglyceride - تراي غليسيريد', price: '50 ج' },
+      { name: 'Triglyceride - دهون ثلاثية', price: '50 ج' },
       { name: 'HDL - كوليسترول جيد', price: '50 ج' },
       { name: 'LDL - كوليسترول سيء', price: '50 ج' },
-      { name: 'Lipid Profile - دهن كامل', price: '200 ج' },
+      { name: 'Lipid Profile - دهون كامل', price: '200 ج' },
       { name: 'PT + INR -(سيولة الدم)', price: '50 ج' },
       { name: 'PTT - (سيولة الدم)', price: '60 ج' },
       { name: 'D-dimer', price: '280 ج' },
@@ -181,8 +181,8 @@
       { name: 'Estradiol (E2)', price: '120 ج' },
       { name: 'Testosterone (Free)', price: '170 ج' },
       { name: 'Testosterone (Total)', price: '190 ج' },
-      { name: 'PSA', price: '170 ج' },
-      { name: 'Free PSA', price: '170 ج' },
+      { name: 'Total PSA (بروستاتا)', price: '170 ج' },
+      { name: 'Free PSA (بروستاتا)', price: '170 ج' },
       { name: 'AFP', price: '180 ج' },
       { name: 'ANA', price: '300 ج' },
       { name: 'Anti Beta 2 Glycoprotein IgG', price: '600 ج' },
@@ -199,7 +199,7 @@
       { name: 'Toxoplasma IgM', price: '200 ج' },
       { name: 'VIT B12', price: '500 ج' },
       { name: 'Drug in urine', price: '400 ج' },
-      { name: 'VIT D', price: '450 ج' }
+      { name: 'VIT D (فيتامين د)', price: '450 ج' }
     ];
 
     const testsListEl = document.getElementById('tests-list');
@@ -241,3 +241,4 @@
   </script>
 </body>
 </html>
+
