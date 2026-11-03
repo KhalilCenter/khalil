@@ -330,22 +330,83 @@
     footer a { color: #fff; text-decoration: none; font-weight: 600; }
     footer a:hover { text-decoration: underline; }
 
-    /* ===== FLOATING WHATSAPP ===== */
-    .whatsapp-fab {
+    /* ===== FLOATING BUTTONS (left column) ===== */
+    .whatsapp-fab,
+    .group-fab,
+    .facebook-fab,
+    .share-fab {
       position: fixed;
-      bottom: 22px;
       left: 22px;
-      width: 56px; height: 56px;
+      width: 50px; height: 50px;
       border-radius: 50%;
-      background: #25d366;
       color: #fff;
       display: flex; align-items: center; justify-content: center;
-      font-size: 1.6rem;
-      box-shadow: 0 10px 26px rgba(37, 211, 102, 0.45);
       z-index: 900;
-      transition: transform 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
     }
-    .whatsapp-fab:hover { transform: scale(1.1); }
+    .whatsapp-fab:hover, .group-fab:hover, .facebook-fab:hover, .share-fab:hover {
+      transform: scale(1.12);
+    }
+
+    .whatsapp-fab {
+      bottom: 22px;
+      background: #25d366;
+      font-size: 1.5rem;
+      box-shadow: 0 10px 26px rgba(37, 211, 102, 0.45);
+    }
+
+    .group-fab {
+      bottom: 84px;
+      background: linear-gradient(135deg, #128c7e, #25d366);
+      font-size: 1.15rem;
+      box-shadow: 0 10px 26px rgba(18, 140, 126, 0.45);
+    }
+
+    .facebook-fab {
+      bottom: 146px;
+      background: #1877f2;
+      font-size: 1.25rem;
+      box-shadow: 0 10px 26px rgba(24, 119, 242, 0.45);
+    }
+
+    .share-fab {
+      bottom: 208px;
+      background: var(--primary-deep);
+      font-size: 1.05rem;
+      box-shadow: 0 8px 20px rgba(18, 121, 184, 0.35);
+    }
+
+    .location-fab {
+      bottom: 270px;
+      background: linear-gradient(135deg, #e53935, #ff7043);
+      font-size: 1.15rem;
+      box-shadow: 0 10px 26px rgba(229, 57, 53, 0.45);
+    }
+
+    /* ===== FOOTER ADDRESS BAR ===== */
+    .footer-address {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+      padding: 10px 22px;
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.30);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.92rem;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .footer-address:hover {
+      background: rgba(255, 255, 255, 0.22);
+      transform: translateY(-2px);
+      text-decoration: none;
+    }
 
     /* ===== CHATBOT ===== */
     #chatbot-toggle {
@@ -573,6 +634,18 @@
           </div>
         </div>
         <div class="card">
+          <div class="card-icon"><i class="fab fa-facebook-f"></i></div>
+          <h3>صفحتنا على فيسبوك</h3>
+          <p class="grow">تابعنا على فيسبوك ليصلك كل جديد عن العيادات، العروض والعروض المميزة للمعمل.</p>
+          <a class="card-btn" href="https://www.facebook.com/ElKhalilCenter/" target="_blank" rel="noopener" style="text-align:center; text-decoration:none; display:block"><i class="fab fa-facebook"></i> تابع صفحتنا</a>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fab fa-whatsapp"></i></div>
+          <h3>جروب الواتس آب</h3>
+          <p class="grow">انضم لجروب واتس آب الرسمي للمركز ليصلك كل جديد — مواعيد الأطباء، عروض المعمل والتنبيهات المهمة.</p>
+          <a class="card-btn" href="https://chat.whatsapp.com/FOKvuN6DFypAETci9YkJMZ" target="_blank" rel="noopener" style="text-align:center; text-decoration:none; display:block"><i class="fas fa-user-plus"></i> انضم للجروب الآن</a>
+        </div>
+        <div class="card">
           <div class="card-icon"><i class="fas fa-clock"></i></div>
           <h3>ساعات العمل</h3>
           <div class="grow">
@@ -624,6 +697,15 @@
           <input type="text" id="bkNotes" placeholder="مثال: مراجعة، استشارة، تقرير...">
         </div>
         <button class="submit-btn" onclick="sendBookingToWhatsApp()"><i class="fab fa-whatsapp"></i> تأكيد الحجز عبر واتس آب</button>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-star"></i></div>
+          <h3>تقييم مرضانا</h3>
+          <div class="grow" style="display:flex; align-items:center; gap:10px; padding-top:8px">
+            <span style="color:#fbbc05; font-size:1.3rem">★★★★★</span>
+            <strong style="color:var(--primary-deep)">4.9</strong>
+          </div>
+          <a class="card-btn" href="https://www.google.com/maps" target="_blank" rel="noopener" style="text-align:center; text-decoration:none; display:block"><i class="fab fa-google"></i> شاهد التقييمات على خرائط جوجل</a>
+        </div>
       </div>
     </section>
 
@@ -665,12 +747,21 @@
       <a href="tel:01040538124"><i class="fas fa-phone"></i> 01040538124</a>
       <a href="https://wa.me/201040538124" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> واتس آب</a>
       <a href="Lab.html"><i class="fas fa-flask-vial"></i> المعمل</a>
+      <a href="https://www.facebook.com/ElKhalilCenter/" target="_blank" rel="noopener"><i class="fab fa-facebook"></i> فيسبوك</a>
+      <a href="https://chat.whatsapp.com/FOKvuN6DFypAETci9YkJMZ" target="_blank" rel="noopener"><i class="fas fa-users"></i> جروب الواتس آب</a>
     </div>
     <p>&copy; 2024 مركز الخليل الطبي — جميع الحقوق محفوظة</p>
+    <a class="footer-address" href="https://maps.google.com/?q=مركز+الخليل+الطبي+البراجيل" target="_blank" rel="noopener"><i class="fas fa-location-dot"></i> العنوان: امتداد شارع أحمد عرابي — أمام البنك الأهلي — البراجيل <i class="fas fa-diamond-turn-right"></i></a>
   </footer>
 
-  <!-- WhatsApp FAB -->
+  <!-- FLOATING BUTTONS -->
   <a class="whatsapp-fab" href="https://wa.me/201040538124" target="_blank" rel="noopener" title="تواصل عبر واتس آب"><i class="fab fa-whatsapp"></i></a>
+  <a class="group-fab" href="https://chat.whatsapp.com/FOKvuN6DFypAETci9YkJMZ" target="_blank" rel="noopener" title="جروب الواتس آب"><i class="fas fa-users"></i></a>
+  <a class="location-fab" href="https://maps.google.com/?q=مركز+الخليل+الطبي+البراجيل" target="_blank" rel="noopener" title="موقعنا على الخريطة"><i class="fas fa-location-dot"></i></a>
+  <a class="facebook-fab" href="https://www.facebook.com/ElKhalilCenter/" target="_blank" rel="noopener" title="صفحتنا على فيسبوك"><i class="fab fa-facebook-f"></i></a>
+
+  <!-- SHARE FAB -->
+  <button class="share-fab" onclick="shareSite()" title="شارك الموقع"><i class="fas fa-share-nodes"></i></button>
 
   <!-- CHATBOT -->
   <button id="chatbot-toggle" title="المساعد الذكي"><i class="fas fa-comment-dots"></i></button>
@@ -944,12 +1035,13 @@
       ['باطنة|قلب|معدة|كبد', buildSpecialtyResponse('internal')],
       ['تغذية|غذاء|غذائي|حمية|وزن', buildSpecialtyResponse('feeding')],
       ['تواصل|اتصال|رقم|هاتف', 'معلومات التواصل:\n📞 01040538124\n📞 01101586178\n📞 0237059816\n📍 امتداد شارع أحمد عرابي - أمام البنك الأهلي - البراجيل'],
+      ['جروب|مجموعة|انضم|قناة', 'جروب واتس آب الرسمي 💬\nانضم لجروب المركز ليصلك كل جديد عن المواعيد والعروض:\n🔗 اضغط على "جروب الواتس آب" في قسم التواصل'],
       ['معمل|تحليل|فحص|نتائج|سعر التحاليل', 'معمل التحاليل:\n🔬 مجهز بأحدث الأجهزة والتقنيات\n⏱️ نتائج دقيقة وسريعة\n💰 يمكنك الاطلاع على قائمة الأسعار كاملة في صفحة المعمل\n📱 أو اتصل: 01040538124'],
       ['طوارئ|إسعاف|اسعاف', 'قسم الطوارئ:\n🚑 متاح 24 ساعة يومياً\n👨‍⚕️ فريق متخصص وكفاءة عالية\n⚡ استجابة سريعة للحالات الطارئة\n📞 اتصل: 01040538124'],
       ['وظيفة|توظيف|وظائف', 'فرص التوظيف:\n💼 نرحب بطلبات التوظيف\n📋 اذهب إلى قسم الوظائف في الموقع\n📝 املأ النموذج بالبيانات\n📱 سيتم التواصل معك عبر واتس آب'],
       ['شكر|مشكور|تمام', 'أهلاً وسهلاً! 😊 في خدمتك دائماً 💙'],
       ['مرحبا|السلام|أهلا|اهلا|صباح|مساء', 'مرحباً بك! 👋 أنا هنا لمساعدتك 😊 كيف يمكنني خدمتك؟'],
-      ['عنوان|موقع|أين|وين', '📍 العنوان: امتداد شارع أحمد عرابي\n📍 أمام البنك الأهلي\n📍 مدينة الفردوس - البراجيل'],
+      ['عنوان|موقع|أين|وين|فين|الطريق', '📍 العنوان: امتداد شارع أحمد عرابي\n📍 أمام البنك الأهلي\n📍 مدينة الفردوس - البراجيل\n🗺️ اضغط على أيقونة الموقع الحمراء على يمين الشاشة لفتح الخريطة مباشرة'],
       ['سعر|تكلفة|أسعار|أجرة|سعر الكشف', 'للاستفسار عن الأسعار:\n📱 اتصل بنا مباشرة: 01040538124\n💬 أو تواصل عبر الواتس آب\n🔬 أسعار التحاليل كاملة في صفحة المعمل'],
       ['عطلة|غلق|إجازة', '📍 مفتوح 24 ساعة يومياً — بدون عطل أو إجازات 🎯'],
       ['دكتور|طبيب|د/', 'نحن نوفر أطباء متخصصين في:\n🧠 المخ والأعصاب\n🩹 الجلدية\n👂 الأنف والأذن\n🦷 الأسنان\n👩‍⚕️ النساء والتوليد\n👶 الأطفال\n🦴 العظام\n🏥 الباطنة\n🥗 التغذية\n\nأي تخصص تهتم به؟']
@@ -1013,6 +1105,24 @@
 
     document.getElementById('chatbot-send').addEventListener('click', sendChatMessage);
     chatbotInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendChatMessage(); });
+
+    /* ===== SHARE ===== */
+    function shareSite() {
+      const data = {
+        title: 'مركز الخليل الطبي',
+        text: 'مركز الخليل الطبي - عيادات متخصصة ومعمل تحاليل وخدمة طوارئ 24 ساعة',
+        url: window.location.href
+      };
+      if (navigator.share) {
+        navigator.share(data).catch(() => {});
+      } else {
+        // fallback: نسخ الرابط وعرض تنبيه
+        navigator.clipboard.writeText(window.location.href).then(
+          () => alert('تم نسخ رابط الموقع ✅ يمكنك مشاركته مع أصدقائك'),
+          () => alert('رابط الموقع: ' + window.location.href)
+        );
+      }
+    }
 
     /* ===== URL HASH SUPPORT ===== */
     window.addEventListener('load', () => {
