@@ -1,327 +1,729 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>المعمل - مركز الخليل الطبي</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
-    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="معمل مركز الخليل الطبي — قائمة تحاليل وأسعار وعروض حصرية">
+  <title>المعمل — مركز الخليل الطبي</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
     :root {
-      --primary-color: #5f27cd;
-      --secondary-color: #4834d4;
-      --accent-color: #ff9f43;
-      --light-color: #ffffff;
-      --dark-color: #222f3e;
-      --gray-bg: #f7f9fc;
-      --border-color: #dcdde1;
+      --primary: #1a9fe0;
+      --primary-dark: #1279b8;
+      --primary-deep: #0d5c8c;
+      --accent: #21c2a8;
+      --accent-warm: #ff9f43;
+      --ink: #16324a;
+      --muted: #5b7891;
+      --bg: #f4fafe;
+      --card: #ffffff;
+      --line: #e3eef6;
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(18, 121, 184, 0.10);
+      --shadow-lg: 0 20px 50px rgba(18, 121, 184, 0.18);
     }
 
-    * { 
-      box-sizing: border-box; 
-      transition: all 0.3s ease;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
       font-family: 'Cairo', sans-serif;
-      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-      color: var(--dark-color);
+      background: var(--bg);
+      color: var(--ink);
       min-height: 100vh;
-      margin: 0;
       display: flex;
       flex-direction: column;
+      overflow-x: hidden;
     }
 
+    /* ===== HEADER ===== */
     header {
-      background: var(--light-color);
-      padding: 15px 0;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
       position: sticky;
       top: 0;
       z-index: 1000;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
     }
 
-    .header-content { 
-      max-width: 1200px; 
-      margin: 0 auto; 
-      padding: 0 20px; 
-      display: flex; 
-      align-items: center; 
-      justify-content: space-between; 
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-img {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+      border-radius: 14px;
+      background: #fff;
+      padding: 4px;
+      box-shadow: 0 6px 16px rgba(26, 159, 224, 0.18);
+    }
+
+    .logo-text h1 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--primary-deep);
+      line-height: 1.2;
+    }
+
+    .logo-text p {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    nav {
+      display: flex;
+      gap: 6px;
       flex-wrap: wrap;
-      gap: 15px;
     }
 
-    .logo-text h1 { margin: 0; color: var(--primary-color); font-size: 1.6rem; font-weight: 700; }
-    
-    nav { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
-    
     nav a.nav-link {
-      background: var(--gray-bg);
-      color: var(--primary-color);
-      padding: 8px 18px;
+      background: transparent;
+      color: var(--primary-deep);
+      padding: 9px 16px;
       border-radius: 12px;
       text-decoration: none;
+      font-size: 0.95rem;
       font-weight: 600;
-      font-size: 0.9rem;
-      border: 1px solid transparent;
+      transition: background 0.25s, color 0.25s;
     }
-    
-    nav a.nav-link:hover { background: var(--primary-color); color: white; }
-    nav a.nav-link.active { background: var(--primary-color); color: white; }
 
-    .hero { text-align:center; padding: 40px 20px; }
-    .hero h2 { margin: 0; color: var(--primary-color); }
+    nav a.nav-link:hover {
+      background: rgba(26, 159, 224, 0.10);
+    }
 
-    /* تنسيق أزرار التبديل (Tabs) */
+    nav .active {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--primary-deep) 0%, var(--primary) 55%, var(--accent) 100%);
+      color: #fff;
+      text-align: center;
+      padding: 60px 20px 66px;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.10);
+    }
+
+    .hero::before {
+      width: 320px;
+      height: 320px;
+      top: -110px;
+      left: -80px;
+    }
+
+    .hero::after {
+      width: 240px;
+      height: 240px;
+      bottom: -90px;
+      right: -60px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .hero .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      padding: 7px 16px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .hero h2 {
+      font-size: clamp(1.7rem, 4vw, 2.5rem);
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      font-size: 1.02rem;
+      opacity: 0.92;
+      line-height: 1.9;
+    }
+
+    /* ===== LAYOUT ===== */
+    main {
+      flex: 1;
+      max-width: 960px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 42px 20px;
+    }
+
     .view-tabs {
       display: flex;
       justify-content: center;
-      gap: 15px;
-      margin-bottom: 30px;
+      gap: 12px;
+      margin-bottom: 32px;
       flex-wrap: wrap;
     }
 
     .view-tab {
-      background: var(--light-color);
-      border: 2px solid var(--primary-color);
-      color: var(--primary-color);
-      padding: 12px 25px;
+      background: #fff;
+      border: 1.5px solid var(--line);
+      color: var(--ink);
+      padding: 12px 24px;
       border-radius: 50px;
       cursor: pointer;
+      font-family: inherit;
+      font-size: 0.98rem;
       font-weight: 700;
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-size: 1rem;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      gap: 9px;
+      transition: all 0.25s;
+    }
+
+    .view-tab:hover {
+      border-color: var(--primary);
+      color: var(--primary);
     }
 
     .view-tab.active {
-      background: var(--primary-color);
-      color: white;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(26, 159, 224, 0.30);
     }
 
-    .offers-view {
+    .view {
       display: none;
-      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .view.active {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    /* ===== SEARCH & LIST ===== */
+    .tests-container {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 26px;
+      box-shadow: var(--shadow);
+    }
+
+    .tests-search {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .tests-search input {
+      flex: 1;
+      padding: 12px 16px;
+      border: 1.5px solid var(--line);
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 0.98rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .tests-search input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(26, 159, 224, 0.12);
+    }
+
+    .tests-search button {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff;
+      border: none;
+      padding: 0 22px;
+      border-radius: 12px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: filter 0.2s;
+    }
+
+    .tests-search button:hover {
+      filter: brightness(1.08);
+    }
+
+    .tests-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .tests-list {
+      list-style: none;
+      max-height: 560px;
+      overflow-y: auto;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+
+    .tests-list::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .tests-list::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    .tests-list::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 10px;
+    }
+
+    .tests-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+      transition: background 0.2s;
+    }
+
+    .tests-list li:last-child {
+      border-bottom: none;
+    }
+
+    .tests-list li:hover {
+      background: #f4fafe;
+    }
+
+    .tests-list li .test-name {
+      font-weight: 600;
+      font-size: 0.94rem;
+    }
+
+    .tests-list li .price {
+      background: rgba(26, 159, 224, 0.10);
+      color: var(--primary-deep);
+      padding: 5px 14px;
+      border-radius: 50px;
+      font-weight: 800;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    .no-results {
+      padding: 28px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    /* ===== OFFERS ===== */
+    .offers-view {
       text-align: center;
     }
 
     .offer-card {
       position: relative;
-      display: inline-block;
-      width: 100%;
-      max-width: 800px;
-      margin-bottom: 30px;
+      max-width: 780px;
+      margin: 0 auto 34px;
       cursor: pointer;
     }
 
     .offer-large-img {
       width: 100%;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      border: 6px solid white;
-      transition: transform 0.3s ease;
       display: block;
+      border-radius: var(--radius);
+      border: 6px solid #fff;
+      box-shadow: var(--shadow-lg);
+      transition: transform 0.3s;
     }
 
-    /* شارة الخصم فوق الصورة */
+    .offer-card:hover .offer-large-img {
+      transform: scale(1.015);
+    }
+
     .discount-badge {
       position: absolute;
-      top: -15px;
-      right: -15px;
-      background: var(--accent-color);
-      color: white;
-      width: 75px;
-      height: 75px;
-      border-radius: 50%;
+      top: -16px;
+      right: -12px;
+      background: linear-gradient(135deg, var(--accent-warm), #ff6b35);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 50px;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      box-shadow: 0 5px 20px rgba(255, 159, 67, 0.5);
-      z-index: 10;
-      border: 3px solid white;
+      gap: 8px;
+      font-weight: 800;
+      font-size: 0.92rem;
+      box-shadow: 0 8px 22px rgba(255, 128, 56, 0.45);
+      border: 3px solid #fff;
+      z-index: 2;
       animation: pulse 2s infinite;
     }
-    
+
     @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.06);
+      }
     }
 
-    .offer-large-img:hover {
-      transform: scale(1.02);
+    .offers-note {
+      text-align: center;
+      color: var(--primary-deep);
+      font-weight: 700;
+      margin-top: 10px;
     }
 
-    main { 
-      max-width: 900px; 
-      margin: 0 auto 40px auto; 
-      padding: 0 20px; 
-      flex: 1;
-    }
-    .section-title { text-align:right; margin-bottom: 18px; }
-
-    .tests-container { 
-      background: var(--light-color); 
-      padding: 25px; 
-      border-radius: 15px; 
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--primary-deep);
+      color: rgba(255, 255, 255, 0.9);
+      text-align: center;
+      padding: 26px 20px;
+      margin-top: auto;
+      font-size: 0.92rem;
     }
 
-    .tests-search { display: flex; gap: 10px; margin-bottom: 20px; }
-    .tests-search input { 
-      flex: 1; 
-      padding: 12px 18px; 
-      border: 2px solid var(--gray-bg); 
-      border-radius: 10px; 
-      outline: none;
-      font-family: inherit;
-    }
-    .tests-search input:focus { border-color: var(--primary-color); }
-    .tests-search button { 
-      background: var(--primary-color); 
-      color: #fff; 
-      border: none; 
-      padding: 0 20px; 
-      border-radius: 10px; 
-      cursor: pointer; 
-    }
-    .tests-search button:hover { background: var(--secondary-color); }
-
-    .tests-list { 
-      list-style: none; 
-      padding: 0; 
-      margin: 0; 
-      max-height: 600px; 
-      overflow-y: auto; 
-      border-radius: 8px;
+    footer .footer-links {
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
     }
 
-    /* تحسين شكل شريط التمرير */
-    .tests-list::-webkit-scrollbar {
-      width: 8px;
-    }
-    .tests-list::-webkit-scrollbar-track {
-      background: var(--gray-bg);
-    }
-    .tests-list::-webkit-scrollbar-thumb {
-      background: var(--secondary-color);
-      border-radius: 10px;
+    footer a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
     }
 
-    .tests-list li { 
-      display: flex; 
-      justify-content: space-between; 
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== FLOATING WHATSAPP ===== */
+    .whatsapp-fab {
+      position: fixed;
+      bottom: 22px;
+      left: 22px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #25d366;
+      color: #fff;
+      display: flex;
       align-items: center;
-      padding: 15px; 
-      border-bottom: 1px solid var(--gray-bg); 
+      justify-content: center;
+      font-size: 1.6rem;
+      box-shadow: 0 10px 26px rgba(37, 211, 102, 0.45);
+      z-index: 900;
+      transition: transform 0.2s;
+    }
+
+    .whatsapp-fab:hover {
+      transform: scale(1.1);
+    }
+
+    /* ===== CHATBOT ===== */
+    #chatbot-toggle {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      width: 58px; height: 58px;
+      border-radius: 50%;
+      border: none;
+      background: linear-gradient(135deg, var(--primary), var(--primary-deep));
+      color: #fff;
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 1001;
+      box-shadow: 0 10px 26px rgba(26, 159, 224, 0.45);
+      transition: transform 0.2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #chatbot-toggle:hover { transform: scale(1.08); }
+
+    #chatbot-container {
+      position: fixed;
+      bottom: 92px;
+      right: 22px;
+      width: min(370px, calc(100vw - 44px));
+      height: min(560px, 72vh);
       background: #fff;
-      animation: fadeIn 0.3s ease-in-out;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 1002;
     }
+    #chatbot-container.active { display: flex; animation: fadeIn 0.3s ease; }
 
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-
-    .tests-list li:hover { background: var(--gray-bg); }
-    .tests-list li .test-name { font-weight: 600; color: var(--dark-color); }
-    .tests-list li .price { 
-      background: rgba(95, 39, 205, 0.1); 
-      color: var(--primary-color); 
-      padding: 5px 12px; 
-      border-radius: 20px; 
-      font-weight: 700; 
+    .chatbot-header {
+      background: linear-gradient(135deg, var(--primary-deep), var(--primary));
+      color: #fff;
+      padding: 15px 18px;
+      display: flex; justify-content: space-between; align-items: center;
     }
+    .chatbot-header h3 { font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+    .chatbot-close { background: none; border: none; color: #fff; font-size: 1.4rem; cursor: pointer; line-height: 1; }
+    .chatbot-close:hover { opacity: 0.8; }
 
-    .no-results { padding:20px; text-align:center; color:#666; }
+    .chatbot-messages { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; background: #f8fcff; }
+    .chatbot-message { display: flex; }
+    .chatbot-message p { margin: 0; padding: 11px 15px; border-radius: 14px; font-size: 0.9rem; line-height: 1.7; max-width: 85%; white-space: pre-line; }
+    .bot-message { justify-content: flex-start; }
+    .bot-message p { background: #eaf5fc; color: var(--primary-deep); border: 1px solid var(--line); border-radius: 14px 14px 14px 4px; }
+    .user-message { justify-content: flex-end; }
+    .user-message p { background: linear-gradient(135deg, var(--primary), var(--accent)); color: #fff; border-radius: 14px 14px 4px 14px; }
 
-    footer { 
-      background: var(--dark-color); 
-      color: white; 
-      text-align: center; 
-      padding: 25px 0; 
-      margin-top: auto; 
+    .chatbot-suggestions {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      padding: 10px 14px;
+      border-top: 1px solid var(--line);
+      max-height: 92px; overflow-y: auto;
+      background: #fff;
     }
+    .suggestion-btn {
+      background: #f0f8fd;
+      border: 1px solid var(--line);
+      color: var(--primary-deep);
+      padding: 5px 12px;
+      border-radius: 50px;
+      font-size: 0.78rem;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .suggestion-btn:hover { background: var(--primary); border-color: var(--primary); color: #fff; }
 
-    /* Responsive Design Adjustments */
+    .chatbot-input-area {
+      display: flex; gap: 8px; align-items: center;
+      padding: 12px 14px;
+      border-top: 1px solid var(--line);
+      background: #fff;
+    }
+    .chatbot-input {
+      flex: 1;
+      border: 1.5px solid var(--line);
+      border-radius: 50px;
+      padding: 10px 16px;
+      font-family: inherit;
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .chatbot-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(26, 159, 224, 0.12); }
+    .chatbot-send {
+      width: 42px; height: 42px;
+      border: none;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.2s;
+    }
+    .chatbot-send:hover { transform: scale(1.08); }
+
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-      .header-content { flex-direction: column; text-align: center; }
-      nav { width: 100%; gap: 8px; }
-      nav a.nav-link { flex: 1 1 40%; text-align: center; font-size: 0.8rem; }
-      .hero h2 { font-size: 1.6rem; }
-      .tests-list li { 
-        flex-direction: row; 
-        justify-content: space-between; 
-        font-size: 0.9rem; 
-        padding: 12px; 
+      .header-content {
+        flex-direction: column;
+      }
+
+      nav {
+        justify-content: center;
+        width: 100%;
+      }
+
+      nav a.nav-link {
+        flex: 1 1 30%;
+        text-align: center;
+        font-size: 0.85rem;
+        padding: 8px 10px;
+      }
+
+      .hero {
+        padding: 46px 16px 52px;
+      }
+
+      main {
+        padding: 30px 14px;
+      }
+
+      .tests-container {
+        padding: 18px;
+      }
+
+      .tests-list li {
+        padding: 11px 12px;
+      }
+
+      .tests-list li .test-name {
+        font-size: 0.85rem;
+      }
+
+      .discount-badge {
+        top: -12px;
+        right: 10px;
+        font-size: 0.8rem;
+        padding: 7px 14px;
       }
     }
   </style>
 </head>
+
 <body>
   <header>
     <div class="header-content">
       <div class="logo-section">
+        <img src="picture.png" alt="شعار مركز الخليل الطبي" class="logo-img">
         <div class="logo-text">
           <h1>الخليل الطبي</h1>
-          <p style="margin:0; font-size:0.9rem; color:var(--primary-color)">مركز متخصص للعناية الصحية</p>
+          <p>مركز متخصص للعناية الصحية</p>
         </div>
       </div>
       <nav>
-        <a class="nav-link" href="index.html">الرئيسية</a>
-        <a class="nav-link" href="index.html#specialties">التخصصات</a>
+        <a href="index.html" class="nav-link">الرئيسية</a>
+        <a href="index.html#specialties" class="nav-link">التخصصات</a>
+        <a href="index.html#booking" class="nav-link">حجز موعد</a>
         <a class="nav-link active" href="Lab.html">المعمل</a>
-        <a class="nav-link" href="index.html#contact">التواصل</a>
+        <a href="index.html#contact" class="nav-link">التواصل</a>
+        <a href="index.html#jobs" class="nav-link">الوظائف</a>
       </nav>
     </div>
   </header>
 
   <div class="hero">
     <div class="hero-content">
+      <span class="badge"><i class="fas fa-flask-vial"></i> نتائج دقيقة وأجهزة حديثة</span>
       <h2>قائمة التحاليل والأسعار</h2>
-      <p style="color: var(--primary-color); margin-top:8px">استخدم البحث للعثور سريعاً على التحليل المطلوب</p>
+      <p>ابحث سريعاً عن التحليل المطلوب أو تصفح عروض المعمل الحصرية</p>
     </div>
   </div>
 
   <main>
-    <section class="tests-section">
-      <div class="section-title">
-        <h2>خدمات المعمل</h2>
-      </div>
+    <div class="view-tabs">
+      <button class="view-tab active" data-view="list"><i class="fas fa-list-ol"></i> قائمة الأسعار</button>
+      <button class="view-tab" data-view="offers"><i class="fas fa-tags"></i> عروض المعمل</button>
+    </div>
 
-      <div class="view-tabs">
-        <button class="view-tab active" data-view="list">
-          <i class="fas fa-list-ol"></i> قائمة الأسعار
-        </button>
-        <button class="view-tab" data-view="offers">
-          <i class="fas fa-percentage"></i> عروض المعمل الكبرى
-        </button>
-      </div>
-
-      <div id="prices-view">
+    <!-- PRICES VIEW -->
+    <div id="prices-view" class="view active">
       <div class="tests-container">
         <div class="tests-search">
           <input type="text" id="tests-search-input" placeholder="ابحث عن اسم التحليل..." aria-label="ابحث عن التحاليل">
-          <button id="tests-search-btn"><i class="fa fa-search"></i></button>
+          <button id="tests-search-btn" aria-label="بحث"><i class="fas fa-magnifying-glass"></i></button>
         </div>
-
+        <div class="tests-meta">
+          <span id="tests-count"></span>
+          <span>الأسعار شاملة النيل</span>
+        </div>
         <ul id="tests-list" class="tests-list"></ul>
         <div id="tests-no-results" class="no-results" style="display:none">لا توجد نتائج مطابقة</div>
       </div>
-      </div>
+    </div>
 
-      <div id="offers-view" class="offers-view">
-        <!-- يتم ملء العروض تلقائياً عبر JavaScript -->
-      </div>
-    </section>
+    <!-- OFFERS VIEW -->
+    <div id="offers-view" class="view offers-view"></div>
   </main>
 
   <footer>
-    <p>&copy; 2024 مركز الخليل الطبي - جميع الحقوق محفوظة</p>
+    <div class="footer-links">
+      <a href="tel:01040538124"><i class="fas fa-phone"></i> 01040538124</a>
+      <a href="https://wa.me/201040538124" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> واتس آب</a>
+      <a href="index.html"><i class="fas fa-house-medical"></i> الموقع الرئيسي</a>
+    </div>
+    <p>&copy; 2024 مركز الخليل الطبي — جميع الحقوق محفوظة</p>
   </footer>
+
+  <a class="whatsapp-fab" href="https://wa.me/201040538124" target="_blank" rel="noopener" title="تواصل عبر واتس آب"><i
+      class="fab fa-whatsapp"></i></a>
+
+  <!-- CHATBOT -->
+  <button id="chatbot-toggle" title="المساعد الذكي"><i class="fas fa-comment-dots"></i></button>
+  <div id="chatbot-container">
+    <div class="chatbot-header">
+      <h3><i class="fas fa-robot"></i> المساعد الذكي</h3>
+      <button id="chatbot-close" class="chatbot-close">&times;</button>
+    </div>
+    <div id="chatbot-messages" class="chatbot-messages">
+      <div class="chatbot-message bot-message"><p>مرحباً! 👋 اسألني عن أي تحليل أو سعر، أو عن خدمات المركز.</p></div>
+    </div>
+    <div class="chatbot-suggestions">
+      <button class="suggestion-btn" onclick="sendMessage('سعر CBC')">سعر CBC</button>
+      <button class="suggestion-btn" onclick="sendMessage('سعر السكر التراكمي')">السكر التراكمي</button>
+      <button class="suggestion-btn" onclick="sendMessage('فيتامين د')">فيتامين د</button>
+      <button class="suggestion-btn" onclick="sendMessage('العروض')">العروض</button>
+      <button class="suggestion-btn" onclick="sendMessage('مواعيد العمل')">مواعيد العمل</button>
+      <button class="suggestion-btn" onclick="sendMessage('معلومات التواصل')">التواصل</button>
+    </div>
+    <div class="chatbot-input-area">
+      <input type="text" id="chatbot-input" class="chatbot-input" placeholder="اكتب اسم التحليل أو سؤالك...">
+      <button id="chatbot-send" class="chatbot-send"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
 
   <script>
     const testsData = [
@@ -347,8 +749,8 @@
       { name: 'ESR - سرعة الترسيب', price: '100 ج' },
       { name: 'ACCP (Anti-CCP)', price: '420 ج' },
       { name: 'Urea - يوريا (وظائف الكلى)', price: '70 ج' },
-      { name: 'Creatinine - (وظائف الكلى) كرياتينين', price: '70 ج' },
-      { name: 'Uric Acid - (وظائف الكلى) النقرس', price: '70 ج' },
+      { name: 'Creatinine - كرياتينين (وظائف الكلى)', price: '70 ج' },
+      { name: 'Uric Acid - النقرس (وظائف الكلى)', price: '70 ج' },
       { name: 'S.GOT (AST) - وظائف كبد', price: '70 ج' },
       { name: 'S.GPT (ALT) - وظائف كبد', price: '70 ج' },
       { name: 'Albumin - ألبومين', price: '75 ج' },
@@ -359,15 +761,15 @@
       { name: 'Triglyceride - دهون ثلاثية', price: '60 ج' },
       { name: 'HDL - كوليسترول جيد', price: '60 ج' },
       { name: 'LDL - كوليسترول سيء', price: '60 ج' },
-      { name: 'Lipid Profile - دهون كامل', price: '240 ج' },
-      { name: 'PT + INR -(سيولة الدم)', price: '70 ج' },
-      { name: 'PTT - (سيولة الدم)', price: '90 ج' },
+      { name: 'Lipid Profile - دهون كاملة', price: '240 ج' },
+      { name: 'PT + INR - سيولة الدم', price: '70 ج' },
+      { name: 'PTT - سيولة الدم', price: '90 ج' },
       { name: 'D-dimer', price: '340 ج' },
       { name: 'Lupus Anticoagulants (LA)', price: '480 ج' },
       { name: 'Bleeding Time', price: '60 ج' },
       { name: 'Clotting Time', price: '60 ج' },
       { name: 'FSH', price: '150 ج' },
-      { name: 'PRL - Prolactin (هرمون البن)', price: '150 ج' },
+      { name: 'PRL - Prolactin (هرمون البرولاكتين)', price: '150 ج' },
       { name: 'LH', price: '150 ج' },
       { name: 'AMH (مخزون المبيض)', price: '720 ج' },
       { name: 'TSH (الغدة)', price: '120 ج' },
@@ -377,28 +779,28 @@
       { name: 'FT4 (الغدة)', price: '120 ج' },
       { name: 'PTH (الغدة)', price: '300 ج' },
       { name: 'Growth Hormone (هرمون النمو)', price: '300 ج' },
-      { name: 'HAV Ab (فيروس اي)', price: '240 ج' },
-      { name: 'HBS Ag (فيروس بي)', price: '150 ج' },
-      { name: 'HCV Ab (فيروس سي)', price: '150 ج' },
+      { name: 'HAV Ab (فيروس A)', price: '240 ج' },
+      { name: 'HBS Ag (فيروس B)', price: '150 ج' },
+      { name: 'HCV Ab (فيروس C)', price: '150 ج' },
       { name: 'HIV AB (فيروس نقص المناعة)', price: '150 ج' },
       { name: 'Na - صوديوم', price: '100 ج' },
-      { name: 'Ph (Phosphate)', price: '100 ج' },
+      { name: 'Ph - فوسفور', price: '100 ج' },
       { name: 'Iron - حديد', price: '110 ج' },
       { name: 'K - بوتاسيوم', price: '100 ج' },
-      { name: 'Ca Ionized (كالسيوم ايوني)', price: '100 ج' },
-      { name: 'Ca Total (كالسيوم كلي)', price: '100 ج' },
-      { name: 'Magnesium (Mg) (ماغنسيوم)', price: '100 ج' },
+      { name: 'Ca Ionized - كالسيوم أيوني', price: '100 ج' },
+      { name: 'Ca Total - كالسيوم كلي', price: '100 ج' },
+      { name: 'Magnesium (Mg) - ماغنسيوم', price: '100 ج' },
       { name: 'Alkaline Phosphatase', price: '110 ج' },
-      { name: 'Ferritin (مخزون حديد)', price: '150 ج' },
-      { name: 'ABO RH (فصيلة دم) ', price: '120 ج' },
-      { name: 'Pregnancy Test (اختبار حمل)', price: '60 ج' },
-      { name: 'BHCG (حمل رقمي)', price: '240 ج' },
+      { name: 'Ferritin - مخزون حديد', price: '150 ج' },
+      { name: 'ABO RH - فصيلة دم', price: '120 ج' },
+      { name: 'Pregnancy Test - اختبار حمل', price: '60 ج' },
+      { name: 'BHCG - حمل رقمي', price: '240 ج' },
       { name: 'Progesterone (P4)', price: '230 ج' },
       { name: 'Estradiol (E2)', price: '150 ج' },
       { name: 'Testosterone (Free)', price: '220 ج' },
       { name: 'Testosterone (Total)', price: '220 ج' },
-      { name: 'Total PSA (بروستاتا)', price: '200 ج' },
-      { name: 'Free PSA (بروستاتا)', price: '200 ج' },
+      { name: 'Total PSA - بروستاتا', price: '200 ج' },
+      { name: 'Free PSA - بروستاتا', price: '200 ج' },
       { name: 'AFP', price: '220 ج' },
       { name: 'ANA', price: '360 ج' },
       { name: 'Anti Beta 2 Glycoprotein IgG', price: '720 ج' },
@@ -408,44 +810,39 @@
       { name: 'CMV IgG', price: '240 ج' },
       { name: 'CMV IgM', price: '240 ج' },
       { name: 'CPK', price: '120 ج' },
-      { name: 'Semen analysis', price: '240 ج' },
-      { name: 'Sputum culture', price: '360 ج' },
+      { name: 'Semen analysis - تحليل سائل منوي', price: '240 ج' },
+      { name: 'Sputum culture - مزرعة بلغم', price: '360 ج' },
       { name: 'Toxoplasma IgG', price: '240 ج' },
       { name: 'Toxoplasma IgM', price: '240 ج' },
-      { name: 'VIT B12', price: '600 ج' },
+      { name: 'VIT B12 - فيتامين ب12', price: '600 ج' },
       { name: 'DHEA', price: '360 ج' },
       { name: 'DHEA-S', price: '360 ج' },
-      { name: 'Drug in urine', price: '490 ج' },
-      { name: 'VIT D (فيتامين د)', price: '550 ج' },
-      { name: 'TIBC (Total iron binding capacity)', price: '120 ج' },
-      { name: 'Serum Transferrin)', price: '360 ج' },
-      { name: 'Zinc (Zn ) Serum', price: '360 ج' },
-
+      { name: 'Drug in urine - مسدرات بالبول', price: '490 ج' },
+      { name: 'VIT D - فيتامين د', price: '550 ج' },
+      { name: 'TIBC - إجمالي ارتباط الحديد', price: '120 ج' },
+      { name: 'Serum Transferrin - الترانسفرين', price: '360 ج' },
+      { name: 'Zinc (Zn) Serum - الزنك', price: '360 ج' }
     ];
 
-    // بيانات العروض - سهلة التعديل والإضافة من هنا
+    // بيانات العروض — لإضافة عرض جديد انسخ عنصراً وعدّل الصورة والنص
     const offersData = [
-      {
-        img: '',
-        badgeText: 'تابعنا لمعرفة الخصومات لحظيا',
-        badgeIcon: 'fas fa-percentage',
-        alt: 'عرض خاص من معمل الخليل'
-      },
-      {
-        img: 'image.png',
-        badgeText: 'توفير',
-        badgeIcon: 'fas fa-fire',
-        alt: 'عرض خصم السكر'
-      },
-      // لإضافة عرض جديد، انسخ الأسطر أعلاه وضعها هنا
+      { img: 'image.png', badgeText: 'عرض خاص', badgeIcon: 'fas fa-fire', alt: 'عرض من معمل الخليل' }
     ];
 
     const testsListEl = document.getElementById('tests-list');
     const testsInput = document.getElementById('tests-search-input');
     const testsNoResults = document.getElementById('tests-no-results');
+    const testsCount = document.getElementById('tests-count');
+
+    function escapeHTML(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
 
     function renderTests(list) {
-      if (!list || list.length === 0) {
+      testsCount.textContent = `عدد التحاليل: ${list.length}`;
+      if (!list.length) {
         testsListEl.innerHTML = '';
         testsNoResults.style.display = 'block';
         return;
@@ -453,75 +850,124 @@
       testsNoResults.style.display = 'none';
       testsListEl.innerHTML = list.map(t => `
         <li>
-          <span class="test-name">${t.name}</span>
-          <span class="price">${t.price}</span>
+          <span class="test-name">${escapeHTML(t.name)}</span>
+          <span class="price">${escapeHTML(t.price)}</span>
         </li>
       `).join('');
     }
 
     function renderOffers() {
       const offersView = document.getElementById('offers-view');
-      if (offersData.length === 0) {
-        offersView.innerHTML = '<p>لا توجد عروض حالياً</p>';
+      if (!offersData.length) {
+        offersView.innerHTML = '<div class="no-results">لا توجد عروض حالياً — تابعنا ليصلك كل جديد</div>';
         return;
       }
-
-      const html = offersData.map(offer => `
+      offersView.innerHTML = offersData.map(o => `
         <div class="offer-card">
-          <div class="-badge">
-            <i class="${offer.badgeIcon}"></i>
-            <span>${offer.badgeText}</span>
-          </div>
-          <img src="${offer.img}" alt="${offer.alt}" class="offer-large-img">
+          <div class="discount-badge"><i class="${o.badgeIcon}"></i> ${o.badgeText}</div>
+          <img src="${o.img}" alt="${o.alt}" class="offer-large-img" loading="lazy">
         </div>
-      `).join('');
-
-      offersView.innerHTML = html + `<p style="text-align:center; color:var(--primary-color); font-weight:700">ترقبوا المزيد من العروض قريباً...</p>`;
+      `).join('') + '<p class="offers-note">ترقبوا المزيد من العروض قريباً...</p>';
     }
 
-    // initial render
+    function doSearch() {
+      const q = testsInput.value.trim().toLowerCase();
+      renderTests(testsData.filter(t => t.name.toLowerCase().includes(q)));
+    }
+
     renderTests(testsData);
     renderOffers();
 
-    testsInput.addEventListener('input', () => {
-      const q = testsInput.value.trim().toLowerCase();
-      const filtered = testsData.filter(t => t.name.toLowerCase().includes(q));
-      renderTests(filtered);
-    });
+    testsInput.addEventListener('input', doSearch);
+    document.getElementById('tests-search-btn').addEventListener('click', () => { doSearch(); testsInput.focus(); });
+    testsInput.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); doSearch(); } });
 
-    document.getElementById('tests-search-btn').addEventListener('click', () => {
-      const q = testsInput.value.trim().toLowerCase();
-      const filtered = testsData.filter(t => t.name.toLowerCase().includes(q));
-      renderTests(filtered);
-      testsInput.focus();
-    });
-
-    testsInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        document.getElementById('tests-search-btn').click();
-      }
-    });
-
-    // منطق التبديل بين القائمة والعروض
+    // تبديل بين القائمة والعروض
     const viewTabs = document.querySelectorAll('.view-tab');
-    const pricesView = document.getElementById('prices-view');
-    const offersView = document.getElementById('offers-view');
+    viewTabs.forEach(tab => tab.addEventListener('click', () => {
+      viewTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      document.getElementById(tab.dataset.view + '-view').classList.add('active');
+    }));
 
-    viewTabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        viewTabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        
-        if (tab.dataset.view === 'list') {
-          pricesView.style.display = 'block';
-          offersView.style.display = 'none';
-        } else {
-          pricesView.style.display = 'none';
-          offersView.style.display = 'block';
+    /* ===== CHATBOT (مشترك مع الرئيسية) ===== */
+    function escapeHTML(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function findTestPrice(message) {
+      const lower = message.toLowerCase().trim();
+      if (lower.length < 2) return null;
+      const matches = testsData.filter(t => t.name.toLowerCase().includes(lower));
+      if (!matches.length) return null;
+      if (matches.length > 4) {
+        return `وجدت ${matches.length} تحليل مطابق 🔍\nحدد الاسم أكثر، أمثلة:\n` +
+          matches.slice(0, 4).map(t => `• ${t.name}: ${t.price}`).join('\n');
+      }
+      return matches.map(t => `🔬 ${t.name}\n💰 السعر: ${t.price}`).join('\n\n');
+    }
+
+    const keywordResponses = [
+      ['ساعات|وقت|متى|فتح', 'ساعات العمل:\n📍 مفتوح 24 ساعة يومياً\n📍 طوال أيام الأسبوع 🎯'],
+      ['تواصل|اتصال|رقم|هاتف', 'معلومات التواصل:\n📞 01040538124\n📞 01101586178\n📞 0237059816\n📍 امتداد شارع أحمد عرابي - أمام البنك الأهلي - البراجيل'],
+      ['عروض|خصم|توفير', '🎉 عروض المعمل موجودة في تبويب "عروض المعمل" بالأعلى\nتابعنا ليصلك كل جديد!'],
+      ['شكر|مشكور|تمام', 'أهلاً وسهلاً! 😊 في خدمتك دائماً 💙'],
+      ['مرحبا|السلام|أهلا|اهلا|صباح|مساء', 'مرحباً بك! 👋 أنا هنا لمساعدتك 😊 اسألني عن أي تحليل أو سعر'],
+      ['حجز|موعد', 'لحجز موعد طبيب، تفضل بزيارة الصفحة الرئيسية قسم "حجز موعد" 📅'],
+      ['عنوان|موقع|أين', '📍 العنوان: امتداد شارع أحمد عرابي\n📍 أمام البنك الأهلي\n📍 مدينة الفردوس - البراجيل']
+    ];
+
+    function getChatbotResponse(message) {
+      const price = findTestPrice(message);
+      if (price) return price;
+      const lower = message.toLowerCase().trim();
+      for (const [keywords, response] of keywordResponses) {
+        for (const keyword of keywords.split('|')) {
+          if (lower.includes(keyword)) return response;
         }
-      });
+      }
+      return 'لم أجد هذا التحليل 😕\nجرّب كتابة اسم أقرب، مثلاً: "سكر" أو "كوليسترول"\n\nأو اتصل بنا: 📞 01040538124';
+    }
+
+    const chatbotToggle = document.getElementById('chatbot-toggle');
+    const chatbotContainer = document.getElementById('chatbot-container');
+    const chatbotClose = document.getElementById('chatbot-close');
+    const chatbotMessages = document.getElementById('chatbot-messages');
+    const chatbotInput = document.getElementById('chatbot-input');
+
+    chatbotToggle.addEventListener('click', () => {
+      chatbotContainer.classList.toggle('active');
+      if (chatbotContainer.classList.contains('active')) chatbotInput.focus();
     });
+    chatbotClose.addEventListener('click', () => chatbotContainer.classList.remove('active'));
+
+    function addMessage(text, isUser) {
+      const div = document.createElement('div');
+      div.className = `chatbot-message ${isUser ? 'user-message' : 'bot-message'}`;
+      div.innerHTML = `<p>${escapeHTML(text)}</p>`;
+      chatbotMessages.appendChild(div);
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
+    function sendChatMessage() {
+      const message = chatbotInput.value.trim();
+      if (!message) return;
+      addMessage(message, true);
+      chatbotInput.value = '';
+      setTimeout(() => addMessage(getChatbotResponse(message), false), 350);
+    }
+
+    function sendMessage(message) {
+      addMessage(message, true);
+      setTimeout(() => addMessage(getChatbotResponse(message), false), 350);
+    }
+
+    document.getElementById('chatbot-send').addEventListener('click', sendChatMessage);
+    chatbotInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendChatMessage(); });
   </script>
 </body>
+
 </html>
