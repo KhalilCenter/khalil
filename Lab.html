@@ -366,6 +366,7 @@
       text-align: center;
       color: var(--muted);
     }
+    .no-results a { color: var(--primary); font-weight: 700; }
 
     /* ===== OFFERS ===== */
     .offers-view {
@@ -666,6 +667,7 @@
   <main>
     <div class="view-tabs">
       <button class="view-tab active" data-view="list"><i class="fas fa-list-ol"></i> قائمة الأسعار</button>
+      <button class="view-tab" data-view="book-lab"><i class="fas fa-flask-vial"></i> حجز تحليل</button>
       <button class="view-tab" data-view="offers"><i class="fas fa-tags"></i> عروض المعمل</button>
     </div>
 
@@ -687,6 +689,38 @@
 
     <!-- OFFERS VIEW -->
     <div id="offers-view" class="view offers-view"></div>
+
+
+
+    <!-- BOOK LAB VIEW -->
+    <div id="book-lab-view" class="view">
+      <div class="form-container" style="max-width: 560px;">
+        <h3><i class="fas fa-flask-vial"></i> حجز تحاليل معمل</h3>
+        <div class="form-group">
+          <label for="labName">الاسم</label>
+          <input type="text" id="labName" placeholder="أدخل اسمك بالكامل">
+        </div>
+        <div class="form-group">
+          <label for="labPhone">رقم الهاتف</label>
+          <input type="tel" id="labPhone" placeholder="أدخل رقم هاتفك">
+        </div>
+        <div class="form-group">
+          <label for="labTest">التحاليل المطلوبة</label>
+          <input type="text" id="labTest" placeholder="مثال: صورة دم كاملة + سكر صائم">
+          <small class="field-hint">يمكنك كتابة أكثر من تحليل، أو نسخ أسمائها من قائمة الأسعار</small>
+        </div>
+        <div class="form-group">
+          <label for="labTime">الوقت المناسب للزيارة</label>
+          <select id="labTime">
+            <option value="في أقرب وقت">في أقرب وقت</option>
+            <option value="صباحاً (صائم)">صباحاً (صائم)</option>
+            <option value="بعد الظهر">بعد الظهر</option>
+            <option value="مساءً">مساءً</option>
+          </select>
+        </div>
+        <button class="submit-btn" onclick="sendLabBookingToWhatsApp()"><i class="fab fa-whatsapp"></i> إرسال طلب الحجز عبر واتس آب</button>
+      </div>
+    </div>
   </main>
 
   <footer>
@@ -694,6 +728,9 @@
       <a href="tel:01040538124"><i class="fas fa-phone"></i> 01040538124</a>
       <a href="https://wa.me/201040538124" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> واتس آب</a>
       <a href="index.html"><i class="fas fa-house-medical"></i> الموقع الرئيسي</a>
+      <a href="https://www.facebook.com/ElKhalilCenter/" target="_blank" rel="noopener"><i class="fab fa-facebook"></i> فيسبوك</a>
+      <a href="https://chat.whatsapp.com/FOKvuN6DFypAETci9YkJMZ" target="_blank" rel="noopener"><i class="fas fa-users"></i> جروب الواتس آب</a>
+      <a href="https://maps.google.com/?q=مركز+الخليل+الطبي+البراجيل" target="_blank" rel="noopener"><i class="fas fa-location-dot"></i> العنوان على الخريطة</a>
     </div>
     <p>&copy; 2024 مركز الخليل الطبي — جميع الحقوق محفوظة</p>
   </footer>
@@ -873,6 +910,22 @@
     function doSearch() {
       const q = testsInput.value.trim().toLowerCase();
       renderTests(testsData.filter(t => t.name.toLowerCase().includes(q)));
+    }
+
+    /* ===== LAB BOOKING ===== */
+    function sendLabBookingToWhatsApp() {
+      const name = document.getElementById('labName').value.trim();
+      const phone = document.getElementById('labPhone').value.trim();
+      const test = document.getElementById('labTest').value.trim();
+      const time = document.getElementById('labTime').value;
+      if (!name || !phone || !test) { alert('يرجى ملء جميع الحقول'); return; }
+      if (!/^01[0-9]{9}$/.test(phone.replace(/\s/g, ''))) {
+        alert('يرجى إدخال رقم هاتف مصري صحيح (11 رقم يبدأ بـ 01)'); return;
+      }
+      let msg = `🔬 طلب حجز تحاليل معمل\n\n`;
+      msg += `👤 الاسم: ${name}\n📱 الهاتف: ${phone}\n`;
+      msg += `🧪 التحاليل: ${test}\n⏰ الوقت المناسب: ${time}\n\nبرجاء تأكيد الموعد. شكراً 🙏`;
+      window.open(`https://wa.me/201040538124?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
     renderTests(testsData);
